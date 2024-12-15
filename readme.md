@@ -2370,9 +2370,9 @@ Singular Value Decomposition (SVD) is a mathematical technique used to factorize
 **Mathematical Formula**
 
 For a given matrix $R$ of dimensions $m \times n$ (e.g., a user-item matrix):
-$$
-R = U \Sigma V^T
-$$
+
+$$R = U \Sigma V^T$$
+
 Where:
 - $U$ is an $m \times k$ matrix containing the left singular vectors, representing user latent factors.
 - $\Sigma$ is a $k \times k$ diagonal matrix of singular values, representing the importance of each latent factor.
