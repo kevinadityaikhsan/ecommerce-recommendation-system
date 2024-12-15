@@ -1910,7 +1910,7 @@ The implementation prepares text data for CBF by converting combined product fea
    - Measures how frequently a term appears in a document.  
    - **Mathematical Formula**
     
-    $$TF(t, d) = \frac{\text{Number of times term } t \text{ appears in document } d}{\text{Total number of terms in document } d}$$
+     $$TF(t, d) = \frac{\text{Number of times term } t \text{ appears in document } d}{\text{Total number of terms in document } d}$$
 
 2. **Inverse Document Frequency (IDF)**
    - Weighs terms by their rarity across all documents in the corpus. Rare terms are given higher weights, while common terms receive lower weights.  
@@ -2032,9 +2032,8 @@ Cosine similarity measures the cosine of the angle between two vectors in a mult
 
 **Mathematical Formula**
 
-$$
-\text{Cosine Similarity} = \frac{\mathbf{A} \cdot \mathbf{B}}{\|\mathbf{A}\| \|\mathbf{B}\|}
-$$
+$$\text{Cosine Similarity} = \frac{\mathbf{A} \cdot \mathbf{B}}{\|\mathbf{A}\| \|\mathbf{B}\|}$$
+
 Where:  
 - $\mathbf{A}$ and $\mathbf{B}$ are the TF-IDF vectors of two products.  
 - $\|\mathbf{A}\|$ and $\|\mathbf{B}\|$ are the magnitudes (norms) of the vectors.  
