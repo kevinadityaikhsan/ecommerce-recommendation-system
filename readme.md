@@ -2392,9 +2392,9 @@ Where:
 - **Reconstruction for Prediction**
 
     An approximation of the original matrix can be reconstructed using a subset of the singular values.
-    $$
-    \hat{R} = U_k \Sigma_k V_k^T
-    $$
+    
+    $$\hat{R} = U_k \Sigma_k V_k^T$$
+    
     This reconstruction predicts missing values in the user-item matrix.
 
 ![SVD](images/image-5.png)
