@@ -1299,19 +1299,6 @@ products_df = pd.merge(products_df, product_price, on='product_id')
 
 <div id="df-aee5a552-ee1a-445b-be7c-f4811ea717b7" class="colab-df-container">
     <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1849,3 +1836,777 @@ The review scores in the training set were normalized to center each customer’
 2. **Filling Missing Values**
    - Missing values (`NaN`) in the centered training set were replaced with zeros. This step ensures compatibility with matrix-based algorithms while retaining the sparse nature of the data.
 
+## **5. Modeling**
+
+### **5.1. Content-Based Filtering**
+
+Content-Based Filtering (CBF) is a recommendation system approach that suggests items to users based on the characteristics of items they have previously interacted with. The system relies on the content (features) of items and the user's historical preferences, without requiring data from other users.
+
+---
+
+#### **How Content-Based Filtering Works**
+
+1. **Item Feature Representation**
+   - Each item in the dataset is represented by a set of descriptive attributes (features). These features can be categorical (e.g., genre, category) or numerical (e.g., price, ratings).  
+   - In CBF, items are often encoded as vectors in a feature space using techniques such as.
+     - **TF-IDF**: Converts textual features into numerical vectors by assigning weights to terms based on their importance.
+     - **One-Hot Encoding** or **Embedding**: Used for categorical features.  
+
+2. **User Profile Generation**
+   - A **user profile** is built by aggregating the features of items the user has interacted with (e.g., purchased, liked, rated).  
+   - For example, the profile may take the average feature values of the items the user interacted with to create a vector representing the user's preferences.  
+
+3. **Similarity Calculation**:  
+   - The system calculates the similarity between the user profile and the feature vectors of other items in the dataset. **Cosine Similarity** is a commonly used metric.
+
+4. **Ranking and Recommendation**:  
+   - Items are ranked based on their similarity to the user's profile.  
+   - The system recommends the top-N items with the highest similarity scores.
+
+---
+
+#### **Advantages of Content-Based Filtering**
+
+1. **Personalization**
+   - Recommendations are tailored to each user based on their preferences, leading to highly personalized suggestions.  
+
+2. **No Cold Start for Items**
+   - CBF does not depend on user-to-user interactions, so new items with sufficient descriptive features can be recommended immediately.  
+
+3. **Transparency**
+   - The system can explain recommendations by pointing to item features that match the user’s preferences (e.g., "Recommended because it matches your interest in health and beauty products").  
+
+---
+
+#### **Challenges of Content-Based Filtering**
+
+1. **Cold Start for Users**
+   - The system requires historical data (e.g., purchases or ratings) to generate a user profile. For new users with no interaction history, CBF may struggle.  
+
+2. **Lack of Diversity**
+   - The system tends to recommend items similar to what the user has already interacted with, which may lead to a "filter bubble" and limit discovery of diverse content.  
+
+3. **Limited Feature Space**
+   - The quality of recommendations depends on the richness and relevance of item features. Poorly described items or sparse features can degrade performance.  
+
+4. **Scalability**
+   - For large datasets, computing similarities between all items and users can become computationally expensive.  
+
+---
+
+#### **Applications of Content-Based Filtering**
+
+- **E-commerce**: Suggesting products based on categories, prices, or descriptions.  
+- **Streaming Services**: Recommending movies or songs based on genres, ratings, or tags.  
+- **Online Education**: Proposing courses based on skill tags or user learning history.  
+
+Content-Based Filtering is a powerful technique when detailed item features are available, and user preferences are well-understood. Its combination with other methods, such as collaborative filtering, can help address its limitations and enhance recommendation quality.
+
+#### **5.1.1. Term Frequency-Inverse Document Frequency**
+
+The implementation prepares text data for CBF by converting combined product features into numerical vectors using **TF-IDF (Term Frequency-Inverse Document Frequency)**. TF-IDF is a text representation technique that assigns weights to terms based on their importance within a document and their rarity across the entire corpus.
+
+1. **Term Frequency (TF)**
+   - Measures how frequently a term appears in a document.  
+   - **Mathematical Formula**
+    $$
+    TF(t, d) = \frac{\text{Number of times term } t \text{ appears in document } d}{\text{Total number of terms in document } d}
+    $$
+
+2. **Inverse Document Frequency (IDF)**
+   - Weighs terms by their rarity across all documents in the corpus. Rare terms are given higher weights, while common terms receive lower weights.  
+   - **Mathematical Formula**
+     $$
+     IDF(t) = \log \left( \frac{\text{Total number of documents}}{\text{Number of documents containing term } t} \right) + 1
+     $$
+
+3. **TF-IDF Score**
+   - Combines TF and IDF to assign a final weight to each term.  
+   - **Mathematical Formula**
+     $$
+     TF\text{-}IDF(t, d) = TF(t, d) \times IDF(t)
+     $$
+
+```python
+# Instantiate the vectorizer object to the tf variable.
+tf = TfidfVectorizer()
+
+# Fit and transform the combined_features column.
+vectorized_data = tf.fit_transform(cb_data['combined_features'])
+```
+
+The TF-IDF approach prioritizes meaningful and unique terms in the product descriptions while minimizing the influence of common terms. This representation is fundamental for calculating product similarities, enabling the recommendation system to identify and recommend similar products effectively.
+
+1. **Vectorization**
+   - The `TfidfVectorizer` object was instantiated and applied to the `combined_features` column of `cb_data`.  
+   - Each term was assigned a weight based on its TF-IDF score, capturing its importance relative to the product it belongs to and its rarity in the entire dataset.  
+
+2. **Feature Extraction**
+   - Distinct terms (features) were extracted from the combined features text.  
+   - Products were represented as sparse vectors in a high-dimensional space, where each dimension corresponds to a term's TF-IDF weight.
+
+```python
+# Create Dataframe from TF-IDF array.
+tfidf_df = pd.DataFrame(
+    vectorized_data.toarray(),
+    columns=tf.get_feature_names_out()
+)
+
+# Assign the product_id to the index.
+tfidf_df.index = cb_data['product_id']
+```
+
+<div id="df-ceb8f8d4-6192-4098-abfd-a8ddcab16b7a" class="colab-df-container">
+    <div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>short_description</th>
+      <th>agro_industry_and_commerce</th>
+      <th>market_place</th>
+      <th>drinks</th>
+      <th>cine_photo</th>
+    </tr>
+    <tr>
+      <th>product_id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>e799a2b8707a6a256fa3c040b75d2713</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1c6fb703c624b381a20f21f757694866</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>6d0a373c460a041c86167a92a5d3383e</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>40678c9096047877fa74a25cc6f0a726</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>b8a0d73b2a06e7910d9864dccdb0cda2</th>
+      <td>0.358</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+The TF-IDF matrix was converted into a DataFrame for easier processing.
+
+- The TF-IDF sparse matrix was transformed into a dense DataFrame with terms as columns and TF-IDF scores as values.
+- The `product_id` was set as the index to link each row to a specific product.
+
+The DataFrame represents products as numerical vectors based on TF-IDF scores, making it ready for similarity calculations and recommendations.
+
+#### **5.1.2. Cosine Similarity**
+
+Cosine similarity measures the cosine of the angle between two vectors in a multi-dimensional space. It determines how similar two vectors are, regardless of their magnitude, making it ideal for comparing textual data represented as TF-IDF vectors.  
+
+**Mathematical Formula**
+
+$$
+\text{Cosine Similarity} = \frac{\mathbf{A} \cdot \mathbf{B}}{\|\mathbf{A}\| \|\mathbf{B}\|}
+$$
+Where:  
+- $\mathbf{A}$ and $\mathbf{B}$ are the TF-IDF vectors of two products.  
+- $\|\mathbf{A}\|$ and $\|\mathbf{B}\|$ are the magnitudes (norms) of the vectors.  
+- $\mathbf{A} \cdot \mathbf{B}$ is the dot product of the vectors.  
+
+The similarity ranges from **0** (completely dissimilar) to **1** (identical), making it easy to interpret.  
+
+```python
+# Create the array of cosine similarity values.
+cosine_similarity_array = cosine_similarity(tfidf_df)
+
+# Wrap the array in a DataFrame.
+cosine_similarity_df = pd.DataFrame(
+    cosine_similarity_array,
+    index=tfidf_df.index,
+    columns=tfidf_df.index
+)
+```
+
+<div id="df-d7dc4a9e-65a4-4036-b512-8fb13907f166" class="colab-df-container">
+    <div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>e799a2b8707a6a256fa3c040b75d2713</th>
+      <th>1c6fb703c624b381a20f21f757694866</th>
+      <th>6d0a373c460a041c86167a92a5d3383e</th>
+      <th>40678c9096047877fa74a25cc6f0a726</th>
+      <th>b8a0d73b2a06e7910d9864dccdb0cda2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>e799a2b8707a6a256fa3c040b75d2713</th>
+      <td>1.000</td>
+      <td>0.231</td>
+      <td>1.000</td>
+      <td>0.113</td>
+      <td>0.131</td>
+    </tr>
+    <tr>
+      <th>1c6fb703c624b381a20f21f757694866</th>
+      <td>0.231</td>
+      <td>1.000</td>
+      <td>0.231</td>
+      <td>0.271</td>
+      <td>0.114</td>
+    </tr>
+    <tr>
+      <th>6d0a373c460a041c86167a92a5d3383e</th>
+      <td>1.000</td>
+      <td>0.231</td>
+      <td>1.000</td>
+      <td>0.113</td>
+      <td>0.131</td>
+    </tr>
+    <tr>
+      <th>40678c9096047877fa74a25cc6f0a726</th>
+      <td>0.113</td>
+      <td>0.271</td>
+      <td>0.113</td>
+      <td>1.000</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <th>b8a0d73b2a06e7910d9864dccdb0cda2</th>
+      <td>0.131</td>
+      <td>0.114</td>
+      <td>0.131</td>
+      <td>0.000</td>
+      <td>1.000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+The cosine similarity matrix was generated to compute the similarity between products based on their TF-IDF vectors.
+
+- The `cosine_similarity` function was applied to the TF-IDF matrix, generating a square matrix where each entry represents the similarity between two products.
+- The similarity matrix was converted into a DataFrame, with rows and columns indexed by `product_id`. This allows for intuitive lookup of similarity scores between specific products.
+
+The `cosine_similarity_df` provides pairwise similarity scores between products. These scores enable the recommendation system to identify and rank products most similar to a given product based on their features, forming the foundation of the CBF approach.
+
+#### **5.1.3. Product Recommendation**
+
+```python
+# Find the values for the product '4d5bb93bfa70f67cda10b1428f2a252c'
+cosine_similarity_series = cosine_similarity_df.loc[random_product_id]
+cosine_similarity_series = cosine_similarity_series.drop(random_product_id)
+
+# Sort these values highest to lowest and keep top 5
+ordered_similarities = cosine_similarity_series.sort_values(ascending=False)
+ordered_similarities = ordered_similarities.head()
+```
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>4d5bb93bfa70f67cda10b1428f2a252c</th>
+    </tr>
+    <tr>
+      <th>product_id</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>e65ab426efaf65e083b917d2e9eac80d</th>
+      <td>0.940</td>
+    </tr>
+    <tr>
+      <th>1589d392201547c9b78a117c0e2191dd</th>
+      <td>0.881</td>
+    </tr>
+    <tr>
+      <th>44feb28a74abb0f2f303412d60160750</th>
+      <td>0.881</td>
+    </tr>
+    <tr>
+      <th>652683d85a89f3b134e44989a601bc58</th>
+      <td>0.881</td>
+    </tr>
+    <tr>
+      <th>1da502ed939a029f4bee6cdc8341b4ac</th>
+      <td>0.821</td>
+    </tr>
+  </tbody>
+</table>
+</div><br>
+
+The recommendation system generates product suggestions by identifying the most similar products to a given one based on cosine similarity scores.
+
+- The cosine similarity scores for the product with ID `4d5bb93bfa70f67cda10b1428f2a252c` were retrieved from the `cosine_similarity_df`.
+- The similarity scores were sorted in descending order, ranking products from most to least similar to the selected product.
+- The top 5 most similar products were selected, representing the closest matches based on their features.
+
+The system outputs a ranked list of the top 5 recommended products, based on their similarity scores to the selected product. These recommendations demonstrate the practical application of CBF for suggesting similar items to customers.
+
+```python
+products_df[products_df['product_id'] == random_product_id]
+```
+
+<div id="df-3da0cb4f-eeaf-48b1-91b1-43cbc69aedba" class="colab-df-container">
+    <div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>product_category_name</th>
+      <th>product_id</th>
+      <th>product_description_lenght</th>
+      <th>product_photos_qty</th>
+      <th>product_weight_g</th>
+      <th>volume_cm3</th>
+      <th>price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>7270</th>
+      <td>books_technical</td>
+      <td>4d5bb93bfa70f67cda10b1428f2a252c</td>
+      <td>250</td>
+      <td>1</td>
+      <td>500</td>
+      <td>5808</td>
+      <td>130.8</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+```python
+products_df[products_df['product_id'].isin(ordered_similarities.index)]
+```
+
+<div id="df-19c2ca12-4008-4d2e-999e-7dfb58be7705" class="colab-df-container">
+    <div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>product_category_name</th>
+      <th>product_id</th>
+      <th>product_description_lenght</th>
+      <th>product_photos_qty</th>
+      <th>product_weight_g</th>
+      <th>volume_cm3</th>
+      <th>price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>7259</th>
+      <td>books_technical</td>
+      <td>44feb28a74abb0f2f303412d60160750</td>
+      <td>1120</td>
+      <td>1</td>
+      <td>500</td>
+      <td>1350</td>
+      <td>127.00</td>
+    </tr>
+    <tr>
+      <th>7260</th>
+      <td>books_technical</td>
+      <td>1589d392201547c9b78a117c0e2191dd</td>
+      <td>1499</td>
+      <td>1</td>
+      <td>450</td>
+      <td>4356</td>
+      <td>24.97</td>
+    </tr>
+    <tr>
+      <th>7263</th>
+      <td>books_technical</td>
+      <td>e65ab426efaf65e083b917d2e9eac80d</td>
+      <td>445</td>
+      <td>1</td>
+      <td>500</td>
+      <td>6292</td>
+      <td>147.99</td>
+    </tr>
+    <tr>
+      <th>7265</th>
+      <td>books_technical</td>
+      <td>1da502ed939a029f4bee6cdc8341b4ac</td>
+      <td>1345</td>
+      <td>1</td>
+      <td>600</td>
+      <td>1104</td>
+      <td>29.45</td>
+    </tr>
+    <tr>
+      <th>7269</th>
+      <td>books_technical</td>
+      <td>652683d85a89f3b134e44989a601bc58</td>
+      <td>246</td>
+      <td>1</td>
+      <td>1100</td>
+      <td>1764</td>
+      <td>34.30</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+The CBF system identified the top 5 most similar products to the product with ID `4d5bb93bfa70f67cda10b1428f2a252c`. All recommended products belong to the same category, **books_technical**, demonstrating the system's ability to effectively identify similar items.  
+
+Features such as **description length**, **photos quantity**, **weight**, **volume**, and **price** are closely aligned with the target product, ensuring the recommendations are relevant. The results showcase the effectiveness of the content-based filtering model in generating tailored product suggestions based on shared attributes.
+
+### **5.2. Collaborative Filtering**
+
+Collaborative Filtering (CF) is a recommendation system technique that suggests items to users based on the preferences and behaviors of other users. It assumes that users who have shown similar preferences in the past are likely to agree on future preferences.
+
+---
+
+#### **Types of Collaborative Filtering**
+
+1. **User-Based Collaborative Filtering**
+   - Compares a target user’s preferences with those of other users to find similar users (neighbors).  
+   - Recommends items that the similar users (neighbors) have interacted with but the target user has not.  
+
+2. **Item-Based Collaborative Filtering**
+   - Compares items based on how users have rated or interacted with them.  
+   - Recommends items similar to those the target user has interacted with.  
+
+3. **Matrix Factorization (Model-Based Collaborative Filtering)**
+   - Uses mathematical techniques such as **Singular Value Decomposition (SVD)** to decompose the user-item interaction matrix into latent factors.  
+   - These latent factors represent hidden patterns in user and item relationships, enabling the system to make recommendations.  
+
+---
+
+#### **How Collaborative Filtering Works**
+
+1. **User-Item Matrix**
+   - CF relies on a user-item interaction matrix where rows represent users and columns represent items.  
+   - The matrix contains ratings or interactions (e.g., purchases), with missing values indicating no interaction.  
+
+2. **Similarity Measurement**
+   - **User-Based CF**: Measures similarity between users using metrics like cosine similarity, Pearson correlation, or Euclidean distance.  
+   - **Item-Based CF**: Measures similarity between items based on user interactions.  
+
+3. **Prediction**
+   - For user-based or item-based CF, predictions are made by aggregating the interactions of similar users or items.  
+   - For model-based CF (e.g., SVD), predictions are made by reconstructing the interaction matrix from latent factors.  
+
+---
+
+#### **Advantages of Collaborative Filtering**
+
+1. **Personalization**
+   - Generates highly personalized recommendations by leveraging user behavior patterns.  
+
+2. **No Need for Explicit Features**
+   - Does not rely on predefined item attributes or features, as recommendations are based purely on interaction data.  
+
+3. **Scalability with Data**
+   - Improves as more users and items are added, revealing deeper patterns in preferences.  
+
+---
+
+#### **Challenges of Collaborative Filtering**
+
+1. **Cold Start Problem**
+   - Struggles with recommending items to new users (user cold start) or recommending newly added items (item cold start) due to a lack of interaction data.  
+
+2. **Data Sparsity**
+   - User-item matrices are often highly sparse, as users typically interact with only a small subset of items.  
+
+3. **Scalability**
+   - User-based or item-based CF can become computationally expensive as the number of users or items grows.  
+
+4. **Over-Specialization**
+   - Recommends items similar to those already interacted with, potentially limiting discovery of new or diverse items.  
+
+---
+
+#### **Applications of Collaborative Filtering**
+
+1. **E-Commerce**: Suggesting products based on purchase history or user ratings.  
+2. **Streaming Services**: Recommending movies, music, or TV shows based on user preferences.  
+3. **Social Media**: Suggesting friends, groups, or content based on shared interests or behaviors.  
+4. **Online Education**: Proposing courses or study materials based on interactions and ratings.
+
+CF is a widely used recommendation technique due to its flexibility and ability to leverage implicit patterns in user behavior, making it ideal for scenarios where explicit item features are limited.
+
+#### **5.2.1. Singular Value Decomposition**
+
+Singular Value Decomposition (SVD) is a mathematical technique used to factorize a matrix into three components: two orthogonal matrices and a diagonal matrix of singular values. In collaborative filtering, SVD is applied to the user-item interaction matrix to uncover latent factors that represent hidden relationships between users and items.
+
+**Mathematical Formula**
+
+For a given matrix $R$ of dimensions $m \times n$ (e.g., a user-item matrix):
+$$
+R = U \Sigma V^T
+$$
+Where:
+- $U$ is an $m \times k$ matrix containing the left singular vectors, representing user latent factors.
+- $\Sigma$ is a $k \times k$ diagonal matrix of singular values, representing the importance of each latent factor.
+- $V^T$ is a $k \times n$ matrix containing the right singular vectors, representing item latent factors.
+- $k$ is the rank of the matrix (or a reduced dimension for approximation).
+
+**Core Concepts**
+
+- **Latent Factor Discovery**
+
+    SVD decomposes the interaction matrix into latent factors for users and items, which capture hidden patterns such as user preferences and item characteristics.
+
+- **Dimensionality Reduction**
+
+    The decomposition allows retaining only the top $k$ singular values and their associated vectors, effectively reducing noise and focusing on the most significant relationships.
+
+- **Reconstruction for Prediction**
+
+    An approximation of the original matrix can be reconstructed using a subset of the singular values.
+    $$
+    \hat{R} = U_k \Sigma_k V_k^T
+    $$
+    This reconstruction predicts missing values in the user-item matrix.
+
+![SVD](images/image-5.png)
+
+SVD is a foundational technique in recommendation systems, enabling robust prediction of missing values and enhancing the ability to personalize recommendations based on hidden user and item characteristics [[4]](https://app.datacamp.com/learn/courses/building-recommendation-engines-in-python).
+
+```python
+# Decompose the matrix.
+U, sigma, Vt = svds(training_set_centered.values)
+
+# Convert sigma into a diagonal matrix.
+sigma = np.diag(sigma)
+```
+
+```python
+[[3.464 0.    0.    0.    0.    0.   ]
+ [0.    3.464 0.    0.    0.    0.   ]
+ [0.    0.    3.476 0.    0.    0.   ]
+ [0.    0.    0.    4.085 0.    0.   ]
+ [0.    0.    0.    0.    4.102 0.   ]
+ [0.    0.    0.    0.    0.    4.155]]
+ ```
+
+The Singular Value Decomposition (SVD) process was applied to decompose the user-item interaction matrix into three components:
+
+1. **Decomposing the Matrix**
+   - The `training_set_centered` matrix was decomposed using the `svds` function, resulting in three matrices.
+     - $U$: Contains user latent factors.
+     - $\Sigma$: A diagonal matrix of singular values representing the importance of each latent factor.
+     - $V^T$: Contains item latent factors.
+
+2. **Converting $\Sigma$ into a Diagonal Matrix**
+   - The singular values extracted by `svds` were converted into a diagonal matrix using `np.diag`, making them ready for reconstruction or dimensionality reduction.
+
+The diagonal matrix $\Sigma$ indicates the significance of the corresponding latent factors in explaining variations in the data. Larger singular values (e.g., 4.155) signify more influential latent factors, which are critical for reconstructing the user-item matrix and predicting missing interactions.
+This decomposition lays the foundation for generating recommendations by reconstructing the interaction matrix with the dominant latent factors.
+
+#### **5.2.2. Interaction Matrix Reconstruction**
+
+```python
+# Dot product of U and sigma.
+U_sigma = np.dot(U, sigma)
+
+# Dot product of result and Vt.
+U_sigma_Vt = np.dot(U_sigma, Vt)
+
+# Add back on the row means contained in avg_ratings.
+predicted_review_scores = U_sigma_Vt + avg_review_scores.values.reshape(-1, 1)
+
+# Create DataFrame of the recalculated_review_scores.
+predictions_df = pd.DataFrame(
+    predicted_review_scores,
+    index=training_set.index,
+    columns=training_set.columns
+)
+```
+
+<div id="df-c3a9332c-5037-4387-97e4-753e232702db" class="colab-df-container">
+    <div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>product_id</th>
+      <th>609b1b50202d276e56b2468006fa82aa</th>
+      <th>b57469faf40b556e16b9a49308953700</th>
+      <th>5c973b4202aac5c372a483e712306f4f</th>
+      <th>21fb5057dd6a737df6851a7ab7a130da</th>
+      <th>0449db5eede617c5fd413071d582f038</th>
+    </tr>
+    <tr>
+      <th>customer_unique_id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>93affc403753dca0735740ee2458860a</th>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>1610d8d6bc3013aaf6e558ec18cc8350</th>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>5a85f706b2059c3cd55287e105d8d5ea</th>
+      <td>3.5</td>
+      <td>3.5</td>
+      <td>3.5</td>
+      <td>3.5</td>
+      <td>3.5</td>
+    </tr>
+    <tr>
+      <th>fcda364be74555da695b4afe5166c2b1</th>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>d92462d83762d5e5c112bccc344119e6</th>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+The interaction matrix was reconstructed using the components obtained from Singular Value Decomposition (SVD). This process predicts the missing values in the user-item interaction matrix, enabling recommendations for unseen user-item interactions.
+
+1. **Matrix Reconstruction**
+   - The dot product of $U$ (user latent factors) and $\Sigma$ (singular values) was calculated to obtain $U \Sigma$.
+   - The result was further multiplied with $V^T$ (item latent factors), reconstructing the interaction matrix in its centered form $( U \Sigma V^T)$.
+
+2. **Adding Row Means**
+   - The row-wise mean ratings (`avg_ratings`) were added back to the reconstructed matrix to restore the original scale of review scores. This adjustment ensures that the predicted values align with the actual rating scale.
+
+3. **Saving Reconstructed Matrix**
+   - The final reconstructed matrix, containing predicted review scores for all user-item pairs, was converted into a DataFrame (`predictions_df`) with users as rows and items as columns.
+
+The `predictions_df` now contains predicted review scores for all users and items, filling in the missing values in the original matrix. These predictions form the basis for recommending items to users by identifying those with the highest predicted scores. This reconstructed matrix captures the latent relationships between users and items, enabling the system to predict user preferences for items they have not interacted with.
+
+#### **5.2.3. Product Recommendation**
+
+```python
+# Get sorted predictions for customer '175b8225bdd99e95a64e07a6c06e8746.
+recommendations = predictions_df.loc[
+    random_customer_id
+].sort_values(ascending=False)
+
+# Select the top recommendations.
+recommendations = recommendations.head()
+```
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>175b8225bdd99e95a64e07a6c06e8746</th>
+    </tr>
+    <tr>
+      <th>product_id</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0011c512eb256aa0dbbb544d8dffcf6e</th>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>aacee6f1f7be193e891a8cca7a3a849a</th>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>abe171a94bee936786955f928bd764ab</th>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>abda62f854cffdc94184e6bccadc2286</th>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>abd7f7a1bd327a8f1f363abfc0f87391</th>
+      <td>5.0</td>
+    </tr>
+  </tbody>
+</table>
+</div><br>
