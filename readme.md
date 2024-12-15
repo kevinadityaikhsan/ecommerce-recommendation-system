@@ -2135,19 +2135,6 @@ ordered_similarities = ordered_similarities.head()
 ```
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -2562,19 +2549,6 @@ recommendations = recommendations.head()
 ```
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -2610,3 +2584,523 @@ recommendations = recommendations.head()
   </tbody>
 </table>
 </div><br>
+
+The CF model generates product recommendations for a specific customer based on predicted review scores from the reconstructed interaction matrix.
+
+- A customer ID was randomly selected from those who have provided a review score of 5, ensuring that the recommendations target a highly engaged user.
+- Predicted review scores for all products were retrieved from the `predictions_df` for the selected customer.
+- The predicted review scores were sorted in descending order, ranking products from most to least preferred.
+- The top 5 products with the highest predicted review scores were selected as recommendations.
+
+CF model’s predict user preferences based on latent factors derived from the interaction matrix. The selected items are highly tailored to the customer’s inferred interests, enabling a personalized recommendation experience.  
+
+```python
+# Get a list of products bought by the random customer.
+list_of_products_bought = orders_df[
+    orders_df['customer_unique_id'] == random_customer_id
+]['product_id'].tolist()
+
+# Filter and display product details for the products bought.
+products_df[products_df['product_id'].isin(list_of_products_bought)]
+```
+
+<div id="df-381e4dcd-4836-41df-ad7d-99fba6531bdc" class="colab-df-container">
+    <div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>product_category_name</th>
+      <th>product_id</th>
+      <th>product_description_lenght</th>
+      <th>product_photos_qty</th>
+      <th>product_weight_g</th>
+      <th>volume_cm3</th>
+      <th>price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1824</th>
+      <td>bed_bath_table</td>
+      <td>8d944f9367ba7f153e0ab5b6dc7d063b</td>
+      <td>237</td>
+      <td>1</td>
+      <td>1500</td>
+      <td>13690</td>
+      <td>114.9</td>
+    </tr>
+    <tr>
+      <th>2208</th>
+      <td>bed_bath_table</td>
+      <td>151d7733b44e0c7b292d7e2efb5424a2</td>
+      <td>305</td>
+      <td>1</td>
+      <td>3950</td>
+      <td>19200</td>
+      <td>279.9</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+```python
+products_df[products_df['product_id'].isin(recommendations.index)]
+```
+
+<div id="df-2227fb43-045a-45d0-ad0d-955a08eee582" class="colab-df-container">
+    <div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>product_category_name</th>
+      <th>product_id</th>
+      <th>product_description_lenght</th>
+      <th>product_photos_qty</th>
+      <th>product_weight_g</th>
+      <th>volume_cm3</th>
+      <th>price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>795</th>
+      <td>auto</td>
+      <td>0011c512eb256aa0dbbb544d8dffcf6e</td>
+      <td>177</td>
+      <td>1</td>
+      <td>100</td>
+      <td>3840</td>
+      <td>52.00</td>
+    </tr>
+    <tr>
+      <th>1284</th>
+      <td>bed_bath_table</td>
+      <td>abe171a94bee936786955f928bd764ab</td>
+      <td>553</td>
+      <td>1</td>
+      <td>1300</td>
+      <td>7875</td>
+      <td>81.80</td>
+    </tr>
+    <tr>
+      <th>4487</th>
+      <td>housewares</td>
+      <td>abda62f854cffdc94184e6bccadc2286</td>
+      <td>810</td>
+      <td>4</td>
+      <td>800</td>
+      <td>16038</td>
+      <td>68.00</td>
+    </tr>
+    <tr>
+      <th>5990</th>
+      <td>fashion_bags_accessories</td>
+      <td>aacee6f1f7be193e891a8cca7a3a849a</td>
+      <td>726</td>
+      <td>6</td>
+      <td>100</td>
+      <td>1584</td>
+      <td>79.90</td>
+    </tr>
+    <tr>
+      <th>6217</th>
+      <td>fashion_bags_accessories</td>
+      <td>abd7f7a1bd327a8f1f363abfc0f87391</td>
+      <td>367</td>
+      <td>1</td>
+      <td>100</td>
+      <td>612</td>
+      <td>39.99</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+The CF system identified the top 5 recommended products for the customer with ID `175b8225bdd99e95a64e07a6c06e8746`. The recommendations span diverse categories, including **auto**, **housewares**, **fashion_bags_accessories**, and **bed_bath_table**, showcasing the system's ability to balance relevance and exploration.
+
+Features such as **description length**, **photos quantity**, **weight**, **volume**, and **price** vary across the recommended products, introducing diversity while partially aligning with the customer’s previous preferences in the **bed_bath_table** category. The results demonstrate the effectiveness of the CF model in generating personalized recommendations that combine familiar and novel options.
+
+## **6. Evaluation**
+
+### **6.1. Content-Based Filtering**
+
+#### **6.1.1. Customer Profile Recommendation**
+
+The effectiveness of the CBF system was evaluated by analyzing the alignment of recommended products with the customer’s preferences, using both qualitative insights and quantitative metrics.
+
+```python
+# Get a list of products bought by customer '048df8b25dc48e1554eccde119d6cecd.
+list_of_products_bought = orders_df[
+    orders_df['customer_unique_id'] == random_customer_id
+]['product_id'].tolist()
+
+# Reindex TF-IDF dataframe to include only products bought by the customer.
+products_bought_df = tfidf_df.reindex(list_of_products_bought)
+
+# Calculate the customer's profile by averaging TF-IDF scores of bought products.
+customer_prof = products_bought_df.mean()
+
+# Display the top features in the customer's profile with positive scores.
+customer_prof[customer_prof > 0].sort_values(ascending=False).head()
+```
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>baby</th>
+      <td>0.696268</td>
+    </tr>
+    <tr>
+      <th>many_photos</th>
+      <td>0.352389</td>
+    </tr>
+    <tr>
+      <th>medium_volume</th>
+      <td>0.317158</td>
+    </tr>
+    <tr>
+      <th>long_description</th>
+      <td>0.316169</td>
+    </tr>
+    <tr>
+      <th>light_weight</th>
+      <td>0.300955</td>
+    </tr>
+  </tbody>
+</table>
+</div><br>
+
+A customer profile was generated based on the products they have purchased. The profile represents the average attributes of the items, highlighting the customer's preferences.  
+
+- A subset of the TF-IDF DataFrame (`tfidf_df`) was created, containing only the rows corresponding to the products purchased by the customer.  
+- The average scores of the features for the purchased products were calculated, forming the customer's profile.  
+- Features with the highest average scores indicate the customer's most significant preferences.  
+
+The customer's profile reveals preferences for the following top features.
+- **baby**: Indicates interest in baby-related products.  
+- **many_photos**: Suggests a preference for products with more images.  
+- **medium_volume**: Highlights a tendency toward medium-sized products.  
+- **long_description**: Shows a preference for products with detailed descriptions.  
+- **light_weight**: Indicates favorability toward lighter products.  
+
+```python
+# Find subset of tfidf_df that does not include products in list_of_products_bought
+tfidf_subset_df = tfidf_df.drop(list_of_products_bought, axis=0)
+
+# Calculate the cosine_similarity and wrap it in a DataFrame
+similarity_array = cosine_similarity(
+    customer_prof.values.reshape(1, -1),
+    tfidf_subset_df
+)
+similarity_df = pd.DataFrame(
+    similarity_array.T,
+    index=tfidf_subset_df.index,
+    columns=["similarity_score"]
+)
+
+# Sort the values from high to low by the values in the similarity_score
+sorted_similarity_df = similarity_df.sort_values(
+    "similarity_score",
+    ascending=False
+)
+
+# Inspect the most similar to the customer preferences
+sorted_similarity_df = sorted_similarity_df.head()
+```
+
+<div id="df-44accdcf-8c72-4625-9072-765131f4c0c9" class="colab-df-container">
+    <div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>similarity_score</th>
+    </tr>
+    <tr>
+      <th>product_id</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>103aed057190376889bc9e796affa24e</th>
+      <td>0.974</td>
+    </tr>
+    <tr>
+      <th>c8078bb7927143cdb008e3563230ca61</th>
+      <td>0.923</td>
+    </tr>
+    <tr>
+      <th>3b213ba02fcd0799a85c9c3580a3033d</th>
+      <td>0.877</td>
+    </tr>
+    <tr>
+      <th>14ad6805c263d8d758d648f46a06570e</th>
+      <td>0.877</td>
+    </tr>
+    <tr>
+      <th>cac9e5692471a0700418aa3400b9b2b1</th>
+      <td>0.877</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+The recommendation system generates product suggestions for a customer by identifying items most similar to their profile based on cosine similarity.  
+
+- The `tfidf_df` was filtered to exclude products the customer has already purchased (`list_of_products_bought`). This ensures recommendations include only new products.  
+- The customer's profile vector was compared with the remaining products in the `tfidf_subset_df` using cosine similarity, generating a similarity score for each product.  
+- The resulting similarity scores were wrapped in `similarity_df` for easier analysis.  
+- The products were sorted in descending order by their similarity scores, ranking the most relevant items at the top.  
+
+The top 5 product recommendations for the customer are identified based on their similarity to the customer’s preferences. These recommendations are tailored to the customer's profile, suggesting items most aligned with their past purchasing behavior and interests.
+
+```python
+products_df[products_df['product_id'].isin(list_of_products_bought)]
+```
+
+<div id="df-45b55e20-5f4c-49b1-82a8-9779b488776f" class="colab-df-container">
+    <div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>product_category_name</th>
+      <th>product_id</th>
+      <th>product_description_lenght</th>
+      <th>product_photos_qty</th>
+      <th>product_weight_g</th>
+      <th>volume_cm3</th>
+      <th>price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>5273</th>
+      <td>baby</td>
+      <td>ac946196783ec18b207ead8a00d3f5c4</td>
+      <td>740</td>
+      <td>3</td>
+      <td>167</td>
+      <td>4725</td>
+      <td>54.9</td>
+    </tr>
+    <tr>
+      <th>5280</th>
+      <td>baby</td>
+      <td>b865aecbf934fe78d172e5a0f7a73ec0</td>
+      <td>1344</td>
+      <td>3</td>
+      <td>400</td>
+      <td>5120</td>
+      <td>149.9</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+```python
+products_df[products_df['product_id'].isin(sorted_similarity_df.index)]
+```
+
+<div id="df-fbca9e11-d7da-492f-9e1c-b5869753bebd" class="colab-df-container">
+    <div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>product_category_name</th>
+      <th>product_id</th>
+      <th>product_description_lenght</th>
+      <th>product_photos_qty</th>
+      <th>product_weight_g</th>
+      <th>volume_cm3</th>
+      <th>price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>5240</th>
+      <td>baby</td>
+      <td>103aed057190376889bc9e796affa24e</td>
+      <td>1355</td>
+      <td>4</td>
+      <td>332</td>
+      <td>3840</td>
+      <td>149.33</td>
+    </tr>
+    <tr>
+      <th>5259</th>
+      <td>baby</td>
+      <td>3b213ba02fcd0799a85c9c3580a3033d</td>
+      <td>1640</td>
+      <td>1</td>
+      <td>350</td>
+      <td>8000</td>
+      <td>54.90</td>
+    </tr>
+    <tr>
+      <th>5260</th>
+      <td>baby</td>
+      <td>c8078bb7927143cdb008e3563230ca61</td>
+      <td>1978</td>
+      <td>4</td>
+      <td>250</td>
+      <td>7865</td>
+      <td>19.90</td>
+    </tr>
+    <tr>
+      <th>5269</th>
+      <td>baby</td>
+      <td>14ad6805c263d8d758d648f46a06570e</td>
+      <td>782</td>
+      <td>1</td>
+      <td>350</td>
+      <td>4536</td>
+      <td>60.66</td>
+    </tr>
+    <tr>
+      <th>5286</th>
+      <td>baby</td>
+      <td>cac9e5692471a0700418aa3400b9b2b1</td>
+      <td>2440</td>
+      <td>1</td>
+      <td>375</td>
+      <td>8120</td>
+      <td>119.93</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+The recommendation system generates product suggestions for a customer based on their profile. Below are insights into the purchased and recommended products.
+
+**Customer's Purchased Products**
+
+The customer has previously purchased two products in the **baby** category.
+- Products with moderate description lengths (**740** and **1344 characters**).
+- Consistent photo count (**3 photos** for both products).
+- Lightweight items (**167 g** and **400 g**) with moderate volumes.
+
+**Recommended Products**
+
+The system recommended five new products in the **baby** category, which align with the customer’s preferences.
+- Products with detailed descriptions (ranging from **782 to 2440 characters**).
+- Varied photo counts (**1 to 4 photos**), including higher photo counts than previously purchased items.
+- Lightweight items (weights between **250 g and 375 g**) and moderate to large volumes.
+
+The recommended products closely match the customer’s preference for the **baby** category, lightweight products, and moderate-to-detailed descriptions. The recommendation system effectively suggests items that complement the customer’s profile while introducing new options, such as varying photo counts and slightly different volumes.
+
+#### **6.1.2. Quantitative Evaluation Metrics**
+
+1. **Precision@5**
+
+   Measures the proportion of top-5 recommended products that match the customer's preferences.  
+
+   **Calculation**
+
+   Out of the 5 recommendations, all products matched the customer’s preference for the **baby** category.
+   $$
+   \text{Precision@5} = \frac{\text{Relevant Recommendations}}{\text{Total Recommendations}} = \frac{5}{5} = 1.0 \, (100\%)
+   $$  
+
+2. **Diversity Score**
+
+   Assesses variation in product features among recommendations.  
+   - The recommendations showed variation in **description lengths** (782–2440 characters), **photo counts** (1–4 photos), and **volume** (4536–8120 cm³).  
+   - The diversity in features ensures the recommendations cater to the customer’s general preferences while introducing variety.  
+
+3. **Hit Rate**
+
+   Evaluates whether at least one recommended product matches the customer’s true preferences.  
+   - All 5 recommendations matched the customer’s interest in the **baby** category, yielding a **Hit Rate = 1.0 (100%)**.  
+
+4. **Mean Reciprocal Rank (MRR)**
+
+   Determines the rank of the first relevant product in the recommendation list. Since all recommendations are relevant.
+   $$
+   \text{MRR} = \frac{1}{\text{Rank of First Relevant Recommendation}} = 1.0
+   $$  
+
+### **6.2. Collaborative Filtering**
+
+#### **6.2.1. Root Mean Squared Error**
+
+Root Mean Squared Error (RMSE) is a standard metric for evaluating the accuracy of predicted values in regression-based systems, including collaborative filtering using SVD. RMSE provides a measure of the average difference between predicted ratings (from the reconstructed user-item matrix) and actual ratings, making it an essential evaluation method for recommendation systems.
+
+**Mathematical Formula**
+
+$$
+RMSE = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}
+$$
+Where:
+- $y_i$: Actual user rating for an item.
+- $\hat{y}_i$: Predicted rating for the same item (from the reconstructed matrix).
+- $n$: Total number of predicted ratings being evaluated.
+
+RMSE outputs a single value that quantifies the prediction error, expressed in the same unit as the ratings (e.g., on a scale of 1 to 5).
+
+```python
+# Extract prediction values for the first 50% of rows and columns.
+predictions_value = predictions_df.iloc[:rows, :cols].values
+
+# The first 20 prediction values that match the holdout mask.
+[5. 4. 5. 3. 5. 2. 1. 1. 1. 5. 1. 1. 5. 3. 4. 4. 5. 4. 5. 5.]
+
+# The first 20 actual values from the holdout set that match the holdout mask.
+[5. 4. 5. 3. 5. 2. 1. 1. 1. 5. 1. 1. 5. 3. 3. 5. 4. 4. 5. 5.]
+```
+
+The comparison between predicted and actual review scores highlights the collaborative filtering model’s accuracy in approximating user preferences. Predicted ratings from the reconstructed interaction matrix closely align with actual ratings from the holdout set, with minimal deviations observed. The analysis demonstrates strong performance and forms the basis for calculating evaluation metrics such as RMSE, which quantifies the model's prediction error.
+
+```python
+# Calculate the RMSE between actual values and predictions in the holdout set.
+rmse = mean_squared_error(
+    holdout_set_value[holdout_mask],
+    predictions_value[holdout_mask],
+    squared=False
+).round(2)
+```
+
+```python
+RMSE of SVD Predictions: 0.86
+```
+
+The performance of the collaborative filtering model using SVD was evaluated by calculating the Root Mean Squared Error (RMSE) between predicted and actual review scores. The RMSE value of **0.86** indicates the average deviation of the predicted ratings from the actual ratings. This low RMSE demonstrates that the model effectively captures user preferences and provides accurate predictions, confirming its reliability for generating recommendations.
+
+![RMSE](images/image-6.png)
+
+The RMSE analysis across review scores reveals that the collaborative filtering model performs best for higher ratings. The RMSE for **review score 4** is the lowest at **0.70**, followed by **0.82** for score 5. Prediction errors are higher for lower scores, with RMSE reaching **1.07** for score 1. This indicates the model predicts higher ratings more accurately while struggling with lower ratings.
+
+### **6.3. Insight**
+
+Recommendation system successfully developed using **content-based filtering** and **collaborative filtering** approaches, delivering personalized product suggestions to improve customer satisfaction and merchant success on the Olist platform.  
+
+1. **Content-Based Filtering Results**:  
+   - Products were recommended based on shared attributes such as **category**, **description length**, **number of photos**, **weight**, **volume**, and **price**.  
+   - The system demonstrated strong relevance by recommending products closely aligned with the user’s purchasing history while maintaining diversity in features to enhance product discovery.  
+
+2. **Collaborative Filtering Results**:  
+   - Collaborative filtering using **Singular Value Decomposition (SVD)** predicted user review scores for products, enabling recommendations based on latent patterns in user behavior.  
+   - The model achieved an overall **RMSE of 0.86**, indicating accurate prediction performance. Analysis across review scores revealed the model performed best for higher ratings, with the lowest RMSE of **0.70** for review score 4.  
+
+The system effectively balances relevance and diversity, ensuring that users receive accurate, tailored recommendations while discovering new products. Improved recommendation accuracy supports Olist’s goals of increasing customer engagement, boosting sales, and empowering small businesses across its platform.
+
+## **7. References**
+
+[1] Stalidis, G., Karaveli, I., Diamantaras, K., Delianidi, M., Christantonis, K., Tektonidis, D., Katsalis, A., & Salampasis, M. (2023). Recommendation Systems for e-Shopping: Review of Techniques for Retail and Sustainable Marketing. Sustainability, 15(23), 16151. https://doi.org/10.3390/su152316151
+
+[2] Abdul Hussien, F. T., Rahma, A. M. S., & Abdulwahab, H. B. (2021). An E-Commerce Recommendation System Based on Dynamic Analysis of Customer Behavior. Sustainability, 13(19), 10786. https://doi.org/10.3390/su131910786
+
+[3] kaggle. 2018. https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
+
+[4] datacamp. 20204. https://app.datacamp.com/learn/courses/building-recommendation-engines-in-python
