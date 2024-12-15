@@ -1907,24 +1907,30 @@ Content-Based Filtering is a powerful technique when detailed item features are 
 The implementation prepares text data for CBF by converting combined product features into numerical vectors using **TF-IDF (Term Frequency-Inverse Document Frequency)**. TF-IDF is a text representation technique that assigns weights to terms based on their importance within a document and their rarity across the entire corpus.
 
 1. **Term Frequency (TF)**
-   - Measures how frequently a term appears in a document.  
-   - **Mathematical Formula**
+
+    Measures how frequently a term appears in a document.
+    
+    **Mathematical Formula**
     
     $$
     TF(t, d) = \frac{\text{Number of times term } t \text{ appears in document } d}{\text{Total number of terms in document } d}
     $$
 
 2. **Inverse Document Frequency (IDF)**
-   - Weighs terms by their rarity across all documents in the corpus. Rare terms are given higher weights, while common terms receive lower weights.  
-   - **Mathematical Formula**
+    
+    Weighs terms by their rarity across all documents in the corpus. Rare terms are given higher weights, while common terms receive lower weights.  
+    
+    **Mathematical Formula**
     
     $$
     IDF(t) = \log \left( \frac{\text{Total number of documents}}{\text{Number of documents containing term } t} \right) + 1
     $$
 
 3. **TF-IDF Score**
-   - Combines TF and IDF to assign a final weight to each term.  
-   - **Mathematical Formula**
+
+    Combines TF and IDF to assign a final weight to each term.
+    
+    **Mathematical Formula**
     
     $$
     TF\text{-}IDF(t, d) = TF(t, d) \times IDF(t)
