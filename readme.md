@@ -2394,7 +2394,7 @@ Where:
     An approximation of the original matrix can be reconstructed using a subset of the singular values.
     
     $$\hat{R} = U_k \Sigma_k V_k^T$$
-    
+
     This reconstruction predicts missing values in the user-item matrix.
 
 ![SVD](images/image-5.png)
@@ -3005,9 +3005,8 @@ The recommended products closely match the customer’s preference for the **bab
    **Calculation**
 
    Out of the 5 recommendations, all products matched the customer’s preference for the **baby** category.
-   $$
-   \text{Precision@5} = \frac{\text{Relevant Recommendations}}{\text{Total Recommendations}} = \frac{5}{5} = 1.0 \, (100\%)
-   $$  
+   
+   $$\text{Precision@5} = \frac{\text{Relevant Recommendations}}{\text{Total Recommendations}} = \frac{5}{5} = 1.0 \, (100\%)$$  
 
 2. **Diversity Score**
 
@@ -3023,9 +3022,8 @@ The recommended products closely match the customer’s preference for the **bab
 4. **Mean Reciprocal Rank (MRR)**
 
    Determines the rank of the first relevant product in the recommendation list. Since all recommendations are relevant.
-   $$
-   \text{MRR} = \frac{1}{\text{Rank of First Relevant Recommendation}} = 1.0
-   $$  
+   
+   $$\text{MRR} = \frac{1}{\text{Rank of First Relevant Recommendation}} = 1.0$$  
 
 ### **6.2. Collaborative Filtering**
 
@@ -3035,9 +3033,8 @@ Root Mean Squared Error (RMSE) is a standard metric for evaluating the accuracy 
 
 **Mathematical Formula**
 
-$$
-RMSE = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}
-$$
+$$RMSE = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}$$
+
 Where:
 - $y_i$: Actual user rating for an item.
 - $\hat{y}_i$: Predicted rating for the same item (from the reconstructed matrix).
