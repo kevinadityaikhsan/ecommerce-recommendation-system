@@ -1,4 +1,4 @@
-# **Laporan Proyek Machine Learning - Kevin Aditya Ikhsan**
+# **Ecommerce Recommendation System**
 
 ## **1. Project Overview**
 
