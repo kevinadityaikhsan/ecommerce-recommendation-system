@@ -2753,23 +2753,23 @@ customer_prof[customer_prof > 0].sort_values(ascending=False).head()
   <tbody>
     <tr>
       <th>baby</th>
-      <td>0.696268</td>
+      <td>0.696</td>
     </tr>
     <tr>
       <th>many_photos</th>
-      <td>0.352389</td>
+      <td>0.352</td>
     </tr>
     <tr>
       <th>medium_volume</th>
-      <td>0.317158</td>
+      <td>0.317</td>
     </tr>
     <tr>
       <th>long_description</th>
-      <td>0.316169</td>
+      <td>0.316</td>
     </tr>
     <tr>
       <th>light_weight</th>
-      <td>0.300955</td>
+      <td>0.300</td>
     </tr>
   </tbody>
 </table>
@@ -3096,4 +3096,4 @@ The system effectively balances relevance and diversity, ensuring that users rec
 
 [3] kaggle. 2018. https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
 
-[4] datacamp. 20204. https://app.datacamp.com/learn/courses/building-recommendation-engines-in-python
+[4] datacamp. 2024. https://app.datacamp.com/learn/courses/building-recommendation-engines-in-python
