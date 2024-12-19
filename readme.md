@@ -43,74 +43,14 @@ The relationships between these tables are illustrated in the dataset's schema. 
 
 #### **3.1.1. Customers**
 
-<div id="df-35f78171-b893-49ef-8b0e-bf8317400bd5" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>customer_id</th>
-      <th>customer_unique_id</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>06b8999e2fba1a1fbc88172c00ba8bc7</td>
-      <td>861eff4711a542e4b93843c6dd7febb0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Index | customer_id                        | customer_unique_id               |
+|-------|------------------------------------|-----------------------------------|
+| 0     | 06b8999e2fba1a1fbc88172c00ba8bc7  | 861eff4711a542e4b93843c6dd7febb0 |
 
-<div id="df-d613dc3b-93ca-4b7e-927b-5bc77150b5a7" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Column</th>
-      <th>Type</th>
-      <th>Null</th>
-      <th>Unique</th>
-      <th>Unique Values</th>
-      <th>Min</th>
-      <th>Q1</th>
-      <th>Median</th>
-      <th>Q3</th>
-      <th>Max</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>customer_id</td>
-      <td>object</td>
-      <td>0</td>
-      <td>99441</td>
-      <td>[06b8999e2fba1a1fbc88172c00ba8bc7, 18955e83d33...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>customer_unique_id</td>
-      <td>object</td>
-      <td>0</td>
-      <td>96096</td>
-      <td>[861eff4711a542e4b93843c6dd7febb0, 290c77bc529...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Index | Column               | Type   | Null | Unique | Unique Values                                     | Min  | Q1   | Median | Q3   | Max  |
+|-------|----------------------|--------|------|--------|--------------------------------------------------|------|------|--------|------|------|
+| 0     | customer_id          | object | 0    | 99441  | [06b8999e2fba1a1fbc88172c00ba8bc7, 18955e83d33...] | NaN  | NaN  | NaN    | NaN  | NaN  |
+| 1     | customer_unique_id   | object | 0    | 96096  | [861eff4711a542e4b93843c6dd7febb0, 290c77bc529...] | NaN  | NaN  | NaN    | NaN  | NaN  |
 
 **Customers Table Information**
 - The `customers_df` table consists of **99,441 records** and provides customer-level information.  
@@ -124,89 +64,15 @@ The relationships between these tables are illustrated in the dataset's schema. 
 
 #### **3.1.2. Order Items**
 
-<div id="df-84230aa9-b559-4260-a5e2-11f9c93f2328" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>order_id</th>
-      <th>product_id</th>
-      <th>price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>00010242fe8c5a6d1ba2dd792cb16214</td>
-      <td>4244733e06e7ecb4970a6e2683c13e61</td>
-      <td>58.9</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Index | order_id                          | product_id                        | price  |
+|-------|-----------------------------------|------------------------------------|--------|
+| 0     | 00010242fe8c5a6d1ba2dd792cb16214 | 4244733e06e7ecb4970a6e2683c13e61 | 58.9   |
 
-<div id="df-47d60a76-a185-46fe-82e9-9202b6643786" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Column</th>
-      <th>Type</th>
-      <th>Null</th>
-      <th>Unique</th>
-      <th>Unique Values</th>
-      <th>Min</th>
-      <th>Q1</th>
-      <th>Median</th>
-      <th>Q3</th>
-      <th>Max</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>order_id</td>
-      <td>object</td>
-      <td>0</td>
-      <td>98666</td>
-      <td>[00010242fe8c5a6d1ba2dd792cb16214, 00018f77f2f...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>product_id</td>
-      <td>object</td>
-      <td>0</td>
-      <td>32951</td>
-      <td>[4244733e06e7ecb4970a6e2683c13e61, e5f2d52b802...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>price</td>
-      <td>float64</td>
-      <td>0</td>
-      <td>5968</td>
-      <td>[58.9, 239.9, 199.0, 12.99, 199.9, 21.9, 19.9,...</td>
-      <td>0.85</td>
-      <td>39.9</td>
-      <td>74.99</td>
-      <td>134.9</td>
-      <td>6735.0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Index | Column      | Type    | Null | Unique | Unique Values                                      | Min   | Q1    | Median | Q3    | Max    |
+|-------|-------------|---------|------|--------|---------------------------------------------------|-------|-------|--------|-------|--------|
+| 0     | order_id    | object  | 0    | 98666  | [00010242fe8c5a6d1ba2dd792cb16214, 00018f77f2f...] | NaN   | NaN   | NaN    | NaN   | NaN    |
+| 1     | product_id  | object  | 0    | 32951  | [4244733e06e7ecb4970a6e2683c13e61, e5f2d52b802...] | NaN   | NaN   | NaN    | NaN   | NaN    |
+| 2     | price       | float64 | 0    | 5968   | [58.9, 239.9, 199.0, 12.99, 199.9, 21.9, 19.9,...] | 0.85  | 39.9  | 74.99  | 134.9 | 6735.0 |
 
 **Order Items Table Information**
 - The `order_items_df` table consists of **112,650 records** and provides item-level details for customer orders.  
@@ -222,74 +88,14 @@ The relationships between these tables are illustrated in the dataset's schema. 
 
 #### **3.1.3. Order Reviews**
 
-<div id="df-c8af3a85-75a0-4971-b78d-a9c630790124" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>order_id</th>
-      <th>review_score</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>73fc7af87114b39712e6da79b0a377eb</td>
-      <td>4</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Index | order_id                          | review_score |
+|-------|-----------------------------------|--------------|
+| 0     | 73fc7af87114b39712e6da79b0a377eb | 4            |
 
-<div id="df-0c8be854-f3af-45ff-97bf-9f91df3381c5" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Column</th>
-      <th>Type</th>
-      <th>Null</th>
-      <th>Unique</th>
-      <th>Unique Values</th>
-      <th>Min</th>
-      <th>Q1</th>
-      <th>Median</th>
-      <th>Q3</th>
-      <th>Max</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>order_id</td>
-      <td>object</td>
-      <td>0</td>
-      <td>98673</td>
-      <td>[73fc7af87114b39712e6da79b0a377eb, a548910a1c6...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>review_score</td>
-      <td>int64</td>
-      <td>0</td>
-      <td>5</td>
-      <td>[4, 5, 1, 3, 2]</td>
-      <td>1</td>
-      <td>4</td>
-      <td>5</td>
-      <td>5</td>
-      <td>5</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Index | Column         | Type   | Null | Unique | Unique Values                              | Min | Q1 | Median | Q3 | Max |
+|-------|----------------|--------|------|--------|-------------------------------------------|-----|----|--------|----|-----|
+| 0     | order_id       | object | 0    | 98673  | [73fc7af87114b39712e6da79b0a377eb, a548...] | NaN | NaN | NaN    | NaN | NaN |
+| 1     | review_score   | int64  | 0    | 5      | [4, 5, 1, 3, 2]                           | 1   | 4  | 5      | 5  | 5   | 
 
 **Order Reviews Table Information**
 - The `order_reviews_df` table consists of **99,224 records** and provides customer feedback on orders.  
@@ -304,74 +110,14 @@ The relationships between these tables are illustrated in the dataset's schema. 
 
 #### **3.1.4. Orders**
 
-<div id="df-53b88a1c-7008-4291-b143-61a54c5f3e9f" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>order_id</th>
-      <th>customer_id</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>e481f51cbdc54678b7cc49136f2d6af7</td>
-      <td>9ef432eb6251297304e76186b10a928d</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Index | order_id                          | customer_id                          |
+|-------|-----------------------------------|--------------------------------------|
+| 0     | e481f51cbdc54678b7cc49136f2d6af7 | 9ef432eb6251297304e76186b10a928d     |
 
-<div id="df-27eec79b-e9e1-46a7-8d1f-ba16088dd259" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Column</th>
-      <th>Type</th>
-      <th>Null</th>
-      <th>Unique</th>
-      <th>Unique Values</th>
-      <th>Min</th>
-      <th>Q1</th>
-      <th>Median</th>
-      <th>Q3</th>
-      <th>Max</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>order_id</td>
-      <td>object</td>
-      <td>0</td>
-      <td>99441</td>
-      <td>[e481f51cbdc54678b7cc49136f2d6af7, 53cdb2fc8bc...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>customer_id</td>
-      <td>object</td>
-      <td>0</td>
-      <td>99441</td>
-      <td>[9ef432eb6251297304e76186b10a928d, b0830fb4747...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Index | Column      | Type   | Null | Unique | Unique Values                              | Min | Q1 | Median | Q3 | Max |
+|-------|-------------|--------|------|--------|-------------------------------------------|-----|----|--------|----|-----|
+| 0     | order_id    | object | 0    | 99441  | [e481f51cbdc54678b7cc49136f2d6af7, 53cd...] | NaN | NaN | NaN    | NaN | NaN |
+| 1     | customer_id | object | 0    | 99441  | [9ef432eb6251297304e76186b10a928d, b083...] | NaN | NaN | NaN    | NaN | NaN | 
 
 **Orders Table Information**
 - The `orders_df` table consists of **99,441 records** and provides information about customer orders.  
@@ -386,179 +132,21 @@ The relationships between these tables are illustrated in the dataset's schema. 
 
 #### **3.1.5. Products**
 
-<div id="df-bfe66082-18dc-4af7-bae2-b10fcdf0bfdc" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>product_id</th>
-      <th>product_category_name</th>
-      <th>product_name_lenght</th>
-      <th>product_description_lenght</th>
-      <th>product_photos_qty</th>
-      <th>product_weight_g</th>
-      <th>product_length_cm</th>
-      <th>product_height_cm</th>
-      <th>product_width_cm</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1e9e8ef04dbcff4541ed26657ea517e5</td>
-      <td>perfumaria</td>
-      <td>40.0</td>
-      <td>287.0</td>
-      <td>1.0</td>
-      <td>225.0</td>
-      <td>16.0</td>
-      <td>10.0</td>
-      <td>14.0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Index | product_id                        | product_category_name | product_name_lenght | product_description_lenght | product_photos_qty | product_weight_g | product_length_cm | product_height_cm | product_width_cm |
+|-------|-----------------------------------|-----------------------|---------------------|----------------------------|--------------------|------------------|-------------------|-------------------|------------------|
+| 0     | 1e9e8ef04dbcff4541ed26657ea517e5 | perfumaria            | 40.0                | 287.0                      | 1.0                | 225.0            | 16.0              | 10.0              | 14.0             |
 
-<div id="df-3ec438e2-a435-409a-93fb-e6de9031288f" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Column</th>
-      <th>Type</th>
-      <th>Null</th>
-      <th>Unique</th>
-      <th>Unique Values</th>
-      <th>Min</th>
-      <th>Q1</th>
-      <th>Median</th>
-      <th>Q3</th>
-      <th>Max</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>product_id</td>
-      <td>object</td>
-      <td>0</td>
-      <td>32951</td>
-      <td>[1e9e8ef04dbcff4541ed26657ea517e5, 3aa071139cb...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>product_category_name</td>
-      <td>object</td>
-      <td>610</td>
-      <td>73</td>
-      <td>[perfumaria, artes, esporte_lazer, bebes, util...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>product_name_lenght</td>
-      <td>float64</td>
-      <td>610</td>
-      <td>66</td>
-      <td>[40.0, 44.0, 46.0, 27.0, 37.0, 60.0, 56.0, 57....</td>
-      <td>5.0</td>
-      <td>42.0</td>
-      <td>51.0</td>
-      <td>57.0</td>
-      <td>76.0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>product_description_lenght</td>
-      <td>float64</td>
-      <td>610</td>
-      <td>2960</td>
-      <td>[287.0, 276.0, 250.0, 261.0, 402.0, 745.0, 127...</td>
-      <td>4.0</td>
-      <td>339.0</td>
-      <td>595.0</td>
-      <td>972.0</td>
-      <td>3992.0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>product_photos_qty</td>
-      <td>float64</td>
-      <td>610</td>
-      <td>19</td>
-      <td>[1.0, 4.0, 2.0, 3.0, 5.0, 9.0, 6.0, nan, 7.0, ...</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>3.0</td>
-      <td>20.0</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>product_weight_g</td>
-      <td>float64</td>
-      <td>2</td>
-      <td>2204</td>
-      <td>[225.0, 1000.0, 154.0, 371.0, 625.0, 200.0, 18...</td>
-      <td>0.0</td>
-      <td>300.0</td>
-      <td>700.0</td>
-      <td>1900.0</td>
-      <td>40425.0</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>product_length_cm</td>
-      <td>float64</td>
-      <td>2</td>
-      <td>99</td>
-      <td>[16.0, 30.0, 18.0, 26.0, 20.0, 38.0, 70.0, 40....</td>
-      <td>7.0</td>
-      <td>18.0</td>
-      <td>25.0</td>
-      <td>38.0</td>
-      <td>105.0</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>product_height_cm</td>
-      <td>float64</td>
-      <td>2</td>
-      <td>102</td>
-      <td>[10.0, 18.0, 9.0, 4.0, 17.0, 5.0, 24.0, 8.0, 1...</td>
-      <td>2.0</td>
-      <td>8.0</td>
-      <td>13.0</td>
-      <td>21.0</td>
-      <td>105.0</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>product_width_cm</td>
-      <td>float64</td>
-      <td>2</td>
-      <td>95</td>
-      <td>[14.0, 20.0, 15.0, 26.0, 13.0, 11.0, 44.0, 40....</td>
-      <td>6.0</td>
-      <td>15.0</td>
-      <td>20.0</td>
-      <td>30.0</td>
-      <td>118.0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Index | Column                      | Type    | Null | Unique | Unique Values                               | Min   | Q1   | Median | Q3   | Max     |
+|-------|-----------------------------|---------|------|--------|--------------------------------------------|-------|-------|--------|-------|---------|
+| 0     | product_id                  | object  | 0    | 32951  | [1e9e8ef04dbcff4541ed26657ea517e5, 3aa...] | NaN   | NaN   | NaN    | NaN   | NaN     |
+| 1     | product_category_name       | object  | 610  | 73     | [perfumaria, artes, esporte_lazer, bebes...] | NaN   | NaN   | NaN    | NaN   | NaN     |
+| 2     | product_name_lenght         | float64 | 610  | 66     | [40.0, 44.0, 46.0, 27.0, 37.0, 60.0, 56...] | 5.0   | 42.0  | 51.0   | 57.0  | 76.0    |
+| 3     | product_description_lenght  | float64 | 610  | 2960   | [287.0, 276.0, 250.0, 261.0, 402.0, 745...] | 4.0   | 339.0 | 595.0  | 972.0 | 3992.0  |
+| 4     | product_photos_qty          | float64 | 610  | 19     | [1.0, 4.0, 2.0, 3.0, 5.0, 9.0, 6.0, nan...] | 1.0   | 1.0   | 1.0    | 3.0   | 20.0    |
+| 5     | product_weight_g            | float64 | 2    | 2204   | [225.0, 1000.0, 154.0, 371.0, 625.0, 200...] | 0.0   | 300.0 | 700.0  | 1900.0| 40425.0 |
+| 6     | product_length_cm           | float64 | 2    | 99     | [16.0, 30.0, 18.0, 26.0, 20.0, 38.0, 70...] | 7.0   | 18.0  | 25.0   | 38.0  | 105.0   |
+| 7     | product_height_cm           | float64 | 2    | 102    | [10.0, 18.0, 9.0, 4.0, 17.0, 5.0, 24.0, ...] | 2.0   | 8.0   | 13.0   | 21.0  | 105.0   |
+| 8     | product_width_cm            | float64 | 2    | 95     | [14.0, 20.0, 15.0, 26.0, 13.0, 11.0, 44...] | 6.0   | 15.0  | 20.0   | 30.0  | 118.0   |
 
 **Products Table Information**
 - The `products_df` table consists of **32,951 records** and provides detailed information about products available in the Olist marketplace.  
@@ -583,74 +171,14 @@ The relationships between these tables are illustrated in the dataset's schema. 
 
 #### **3.1.6. Product Category**
 
-<div id="df-97662afe-7ac9-417a-91e5-151dd9eeb9c1" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>product_category_name</th>
-      <th>product_category_name_english</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>beleza_saude</td>
-      <td>health_beauty</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Index | product_category_name | product_category_name_english |
+|-------|------------------------|-------------------------------|
+| 0     | beleza_saude          | health_beauty                |
 
-<div id="df-11f8fffe-ba5b-4afd-939b-242252247aae" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Column</th>
-      <th>Type</th>
-      <th>Null</th>
-      <th>Unique</th>
-      <th>Unique Values</th>
-      <th>Min</th>
-      <th>Q1</th>
-      <th>Median</th>
-      <th>Q3</th>
-      <th>Max</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>product_category_name</td>
-      <td>object</td>
-      <td>0</td>
-      <td>71</td>
-      <td>[beleza_saude, informatica_acessorios, automot...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>product_category_name_english</td>
-      <td>object</td>
-      <td>0</td>
-      <td>71</td>
-      <td>[health_beauty, computers_accessories, auto, b...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Index | Column                       | Type   | Null | Unique | Unique Values                                      | Min   | Q1   | Median | Q3   | Max   |
+|-------|------------------------------|--------|------|--------|---------------------------------------------------|-------|-------|--------|-------|-------|
+| 0     | product_category_name        | object | 0    | 71     | [beleza_saude, informatica_acessorios, automot...] | NaN   | NaN   | NaN    | NaN   | NaN   |
+| 1     | product_category_name_english| object | 0    | 71     | [health_beauty, computers_accessories, auto, b...] | NaN   | NaN   | NaN    | NaN   | NaN   |
 
 **Product Category Table Information**
 - The `product_category_df` table consists of **71 records** and provides a mapping between product category names in Portuguese and their corresponding English translations.  
@@ -689,63 +217,17 @@ The analysis of product category distribution highlights the top 10 most popular
 
 The distribution shows that the marketplace offers a wide range of categories, with household and lifestyle-related items dominating the catalog. These insights are crucial for developing the recommendation system, as they help in identifying key product categories that contribute significantly to customer engagement. Tailoring recommendations based on these popular categories could enhance customer satisfaction and increase sales.
 
-<div id="df-afd54ada-2b52-4086-b316-d7253881c032" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Value</th>
-      <th>Potential_Match</th>
-      <th>Similarity</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>eletrodomesticos</td>
-      <td>eletrodomesticos_2</td>
-      <td>94.12</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>casa_conforto</td>
-      <td>casa_conforto_2</td>
-      <td>92.86</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Index | Value              | Potential_Match    | Similarity |
+|-------|--------------------|--------------------|------------|
+| 0     | eletrodomesticos   | eletrodomesticos_2 | 94.12%     |
+| 1     | casa_conforto      | casa_conforto_2    | 92.86%     |
 
 The analysis of the `product_category_name` in `products_df` and `product_category_df` column identified 2 potential typos: "eletrodomesticos" and "eletrodomesticos_2" (94.12% similarity) and "casa_conforto" and "casa_conforto_2" (92.86% similarity). These findings suggest minor inconsistencies in category naming that may require standardization to ensure data quality and consistency in analysis.
 
-<div id="df-4bb00bde-023b-4888-bf01-1889f8f945d4" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Value</th>
-      <th>Potential_Match</th>
-      <th>Similarity</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>fashion_male_clothing</td>
-      <td>fashio_female_clothing</td>
-      <td>93.02</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>home_appliances</td>
-      <td>home_appliances_2</td>
-      <td>93.75</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Index | Value                   | Potential_Match       | Similarity |
+|-------|-------------------------|-----------------------|------------|
+| 0     | fashion_male_clothing  | fashio_female_clothing | 93.02%     |
+| 1     | home_appliances        | home_appliances_2      | 93.75%     |
 
 The analysis of the `product_category_name_english` column in `product_category_df` identified 2 potential typos. First, "fashio_female_clothing" should be corrected to "fashion_female_clothing" to maintain consistent naming, while "fashion_male_clothing" is a valid and distinct category that requires no correction. Second, "home_appliances_2" should be standardized to "home_appliances" to ensure uniformity within the `product_category_name_english` column. These adjustments will improve data quality and consistency.
 
