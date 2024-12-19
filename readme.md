@@ -923,10 +923,10 @@ cosine_similarity_df = pd.DataFrame(
 
 |                                      | e799a2b8707a6a256fa3c040b75d2713 | 1c6fb703c624b381a20f21f757694866 | 6d0a373c460a041c86167a92a5d3383e | 40678c9096047877fa74a25cc6f0a726 | b8a0d73b2a06e7910d9864dccdb0cda2 |
 |--------------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|
-| e799a2b8707a6a256fa3c040b75d2713    | 1.000                             | 0.231                             | 1.000                             | 0.113                             | 0.131                             |
-| 1c6fb703c624b381a20f21f757694866    | 0.231                             | 1.000                             | 0.231                             | 0.271                             | 0.114                             |
-| 6d0a373c460a041c86167a92a5d3383e    | 1.000                             | 0.231                             | 1.000                             | 0.113                             | 0.131                             |
-| 40678c9096047877fa74a25cc6f0a726    | 0.113                             | 0.271                             | 0.113                             | 1.000                             | 0.000                             |
+| e799a2b8707a6a256fa3c040b75d2713    | 1.000                             | 0.231                             | 1.000                             | 0.114                             | 0.131                             |
+| 1c6fb703c624b381a20f21f757694866    | 0.231                             | 1.000                             | 0.231                             | 0.272                             | 0.114                             |
+| 6d0a373c460a041c86167a92a5d3383e    | 1.000                             | 0.231                             | 1.000                             | 0.114                             | 0.131                             |
+| 40678c9096047877fa74a25cc6f0a726    | 0.114                             | 0.272                             | 0.114                             | 1.000                             | 0.000                             |
 | b8a0d73b2a06e7910d9864dccdb0cda2    | 0.131                             | 0.114                             | 0.131                             | 0.000                             | 1.000                             |
 
 The cosine similarity matrix was generated to compute the similarity between products based on their TF-IDF vectors.
@@ -950,11 +950,11 @@ ordered_similarities = ordered_similarities.head()
 
 | product_id                             | 4d5bb93bfa70f67cda10b1428f2a252c |
 |----------------------------------------|-----------------------------------|
-| e65ab426efaf65e083b917d2e9eac80d      | 0.940                             |
+| e65ab426efaf65e083b917d2e9eac80d      | 0.941                             |
 | 1589d392201547c9b78a117c0e2191dd      | 0.881                             |
 | 44feb28a74abb0f2f303412d60160750      | 0.881                             |
 | 652683d85a89f3b134e44989a601bc58      | 0.881                             |
-| 1da502ed939a029f4bee6cdc8341b4ac      | 0.821                             |
+| 1da502ed939a029f4bee6cdc8341b4ac      | 0.822                             |
 
 The recommendation system generates product suggestions by identifying the most similar products to a given one based on cosine similarity scores.
 
@@ -1113,9 +1113,9 @@ sigma = np.diag(sigma)
 ```python
 [[3.464 0.    0.    0.    0.    0.   ]
  [0.    3.464 0.    0.    0.    0.   ]
- [0.    0.    3.476 0.    0.    0.   ]
+ [0.    0.    3.477 0.    0.    0.   ]
  [0.    0.    0.    4.085 0.    0.   ]
- [0.    0.    0.    0.    4.102 0.   ]
+ [0.    0.    0.    0.    4.103 0.   ]
  [0.    0.    0.    0.    0.    4.155]]
  ```
 
@@ -1260,13 +1260,13 @@ customer_prof = products_bought_df.mean()
 customer_prof[customer_prof > 0].sort_values(ascending=False).head()
 ```
 
-| Feature             | Correlation Value |
+| Feature             |                   |
 |---------------------|-------------------|
 | baby                | 0.696             |
 | many_photos         | 0.352             |
 | medium_volume       | 0.317             |
 | long_description    | 0.316             |
-| light_weight        | 0.300             |
+| light_weight        | 0.301             |
 
 A customer profile was generated based on the products they have purchased. The profile represents the average attributes of the items, highlighting the customer's preferences.  
 
@@ -1308,7 +1308,7 @@ sorted_similarity_df = sorted_similarity_df.head()
 
 | Product ID                              | Similarity Score |
 |-----------------------------------------|------------------|
-| 103aed057190376889bc9e796affa24e        | 0.974            |
+| 103aed057190376889bc9e796affa24e        | 0.975            |
 | c8078bb7927143cdb008e3563230ca61        | 0.923            |
 | 3b213ba02fcd0799a85c9c3580a3033d        | 0.877            |
 | 14ad6805c263d8d758d648f46a06570e        | 0.877            |
