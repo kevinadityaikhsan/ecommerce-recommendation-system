@@ -386,123 +386,21 @@ The `products_df` dataset was enriched with English category names by merging it
 
 ### **4.3. Data Merging**
 
-<div id="df-bcf42771-ea7c-4bcd-b37b-4af290e5197e" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>order_id</th>
-      <th>customer_unique_id</th>
-      <th>product_id</th>
-      <th>price</th>
-      <th>review_score</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>e481f51cbdc54678b7cc49136f2d6af7</td>
-      <td>7c396fd4830fd04220f754e42b4e5bff</td>
-      <td>87285b34884572647811a353c7ac498a</td>
-      <td>29.99</td>
-      <td>4</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Index | order_id                          | customer_unique_id             | product_id                        | price  | review_score |
+|-------|-----------------------------------|---------------------------------|-----------------------------------|--------|--------------|
+| 0     | e481f51cbdc54678b7cc49136f2d6af7 | 7c396fd4830fd04220f754e42b4e5bff | 87285b34884572647811a353c7ac498a | 29.99  | 4            |
 
 ```python
 (112372, 5)
 ```
 
-<div id="df-9af9934d-8af1-4dcf-b3c1-08d58562b702" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Column</th>
-      <th>Type</th>
-      <th>Null</th>
-      <th>Unique</th>
-      <th>Unique Values</th>
-      <th>Min</th>
-      <th>Q1</th>
-      <th>Median</th>
-      <th>Q3</th>
-      <th>Max</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>order_id</td>
-      <td>object</td>
-      <td>0</td>
-      <td>97917</td>
-      <td>[e481f51cbdc54678b7cc49136f2d6af7, 53cdb2fc8bc...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>customer_unique_id</td>
-      <td>object</td>
-      <td>0</td>
-      <td>94721</td>
-      <td>[7c396fd4830fd04220f754e42b4e5bff, af07308b275...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>product_id</td>
-      <td>object</td>
-      <td>0</td>
-      <td>32789</td>
-      <td>[87285b34884572647811a353c7ac498a, 595fac2a385...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>price</td>
-      <td>float64</td>
-      <td>0</td>
-      <td>5948</td>
-      <td>[29.99, 118.7, 159.9, 45.0, 19.9, 147.9, 49.9,...</td>
-      <td>0.85</td>
-      <td>39.9</td>
-      <td>74.9</td>
-      <td>134.9</td>
-      <td>6735.0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>review_score</td>
-      <td>int64</td>
-      <td>0</td>
-      <td>5</td>
-      <td>[4, 5, 2, 1, 3]</td>
-      <td>1</td>
-      <td>4</td>
-      <td>5</td>
-      <td>5</td>
-      <td>5</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Index | Column              | Type     | Null | Unique | Unique Values                                                                                          | Min   | Q1    | Median | Q3    | Max    |
+|-------|---------------------|----------|------|--------|------------------------------------------------------------------------------------------------------|-------|-------|--------|-------|--------|
+| 0     | order_id            | object   | 0    | 97917  | [e481f51cbdc54678b7cc49136f2d6af7, 53cdb2fc8bc...]                                                 | NaN   | NaN   | NaN    | NaN   | NaN    |
+| 1     | customer_unique_id  | object   | 0    | 94721  | [7c396fd4830fd04220f754e42b4e5bff, af07308b275...]                                                 | NaN   | NaN   | NaN    | NaN   | NaN    |
+| 2     | product_id          | object   | 0    | 32789  | [87285b34884572647811a353c7ac498a, 595fac2a385...]                                                 | NaN   | NaN   | NaN    | NaN   | NaN    |
+| 3     | price               | float64  | 0    | 5948   | [29.99, 118.7, 159.9, 45.0, 19.9, 147.9, 49.9,...]                                                 | 0.85  | 39.9  | 74.9   | 134.9 | 6735.0 |
+| 4     | review_score        | int64    | 0    | 5      | [4, 5, 2, 1, 3]                                                                                      | 1     | 4     | 5      | 5     | 5      |
 
 The datasets were merged to create a unified table for analysis.
 
@@ -539,123 +437,21 @@ orders_df = orders_df[
 ]
 ```
 
-<div id="df-6b0b8278-63e1-4d85-96e5-45693a45169e" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>order_id</th>
-      <th>customer_unique_id</th>
-      <th>product_id</th>
-      <th>price</th>
-      <th>review_score</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>e481f51cbdc54678b7cc49136f2d6af7</td>
-      <td>7c396fd4830fd04220f754e42b4e5bff</td>
-      <td>87285b34884572647811a353c7ac498a</td>
-      <td>29.99</td>
-      <td>4</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Index | order_id                            | customer_unique_id            | product_id                        | price | review_score |
+|-------|-------------------------------------|------------------------------|-----------------------------------|-------|--------------|
+| 0     | e481f51cbdc54678b7cc49136f2d6af7   | 7c396fd4830fd04220f754e42b4e5bff | 87285b34884572647811a353c7ac498a | 29.99 | 4            |
 
 ```python
 (13803, 5)
 ```
 
-<div id="df-ce7e96e8-d499-4a74-b8f2-5caf39cccc32" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Column</th>
-      <th>Type</th>
-      <th>Null</th>
-      <th>Unique</th>
-      <th>Unique Values</th>
-      <th>Min</th>
-      <th>Q1</th>
-      <th>Median</th>
-      <th>Q3</th>
-      <th>Max</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>order_id</td>
-      <td>object</td>
-      <td>0</td>
-      <td>8239</td>
-      <td>[e481f51cbdc54678b7cc49136f2d6af7, dcb36b511fc...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>customer_unique_id</td>
-      <td>object</td>
-      <td>0</td>
-      <td>5384</td>
-      <td>[7c396fd4830fd04220f754e42b4e5bff, ccafc1c3f27...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>product_id</td>
-      <td>object</td>
-      <td>0</td>
-      <td>7796</td>
-      <td>[87285b34884572647811a353c7ac498a, 009c09f4399...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>price</td>
-      <td>float64</td>
-      <td>0</td>
-      <td>1919</td>
-      <td>[29.99, 132.4, 90.9, 39.5, 14.49, 36.9, 84.9, ...</td>
-      <td>0.85</td>
-      <td>35.0</td>
-      <td>63.3</td>
-      <td>109.99</td>
-      <td>4799.0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>review_score</td>
-      <td>int64</td>
-      <td>0</td>
-      <td>5</td>
-      <td>[4, 5, 1, 3, 2]</td>
-      <td>1</td>
-      <td>2</td>
-      <td>4</td>
-      <td>5</td>
-      <td>5</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Index | Column                | Type     | Null | Unique | Unique Values                                                                 | Min  | Q1   | Median | Q3   | Max   |
+|-------|-----------------------|----------|------|--------|-------------------------------------------------------------------------------|------|------|--------|------|-------|
+| 0     | order_id              | object   | 0    | 8239   | [e481f51cbdc54678b7cc49136f2d6af7, dcb36b511fc...]                            | NaN  | NaN  | NaN    | NaN  | NaN   |
+| 1     | customer_unique_id    | object   | 0    | 5384   | [7c396fd4830fd04220f754e42b4e5bff, ccafc1c3f27...]                            | NaN  | NaN  | NaN    | NaN  | NaN   |
+| 2     | product_id            | object   | 0    | 7796   | [87285b34884572647811a353c7ac498a, 009c09f4399...]                            | NaN  | NaN  | NaN    | NaN  | NaN   |
+| 3     | price                 | float64  | 0    | 1919   | [29.99, 132.4, 90.9, 39.5, 14.49, 36.9, 84.9, ...]                            | 0.85 | 35.0 | 63.3   | 109.99| 4799.0 |
+| 4     | review_score          | int64    | 0    | 5      | [4, 5, 1, 3, 2]                                                              | 1    | 2    | 4      | 5    | 5     |
 
 The dataset was filtered to include only customers who have purchased more than one unique product. The filtered dataset now contains **13,803 records** and **5,384 unique customers**. Noise reduced by focusing on customers with diverse purchasing behaviors, which are more informative for building recommendation models.
 
@@ -666,78 +462,18 @@ product_price = orders_df.groupby('product_id').agg(
 ).reset_index().round(2)
 ```
 
-<div id="df-64b38ccc-1c8a-4395-a648-3bce59db3a62" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>product_id</th>
-      <th>price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0011c512eb256aa0dbbb544d8dffcf6e</td>
-      <td>52.0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Index | product_id                          | price |
+|-------|-------------------------------------|-------|
+| 0     | 0011c512eb256aa0dbbb544d8dffcf6e    | 52.0  |
 
 ```python
 (7796, 2)
 ```
 
-<div id="df-81df7ffa-bd16-4d4a-9ce2-4f40cdb8a494" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Column</th>
-      <th>Type</th>
-      <th>Null</th>
-      <th>Unique</th>
-      <th>Unique Values</th>
-      <th>Min</th>
-      <th>Q1</th>
-      <th>Median</th>
-      <th>Q3</th>
-      <th>Max</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>product_id</td>
-      <td>object</td>
-      <td>0</td>
-      <td>7796</td>
-      <td>[0011c512eb256aa0dbbb544d8dffcf6e, 001b72dfd63...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>price</td>
-      <td>float64</td>
-      <td>0</td>
-      <td>2120</td>
-      <td>[52.0, 34.99, 32.98, 79.99, 129.9, 39.9, 13.99...</td>
-      <td>0.85</td>
-      <td>34.9</td>
-      <td>64.9</td>
-      <td>119.9</td>
-      <td>4799.0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Index | Column        | Type    | Null | Unique | Unique Values                                                                                   | Min   | Q1    | Median | Q3    | Max    |
+|-------|---------------|---------|------|--------|------------------------------------------------------------------------------------------------|-------|-------|--------|-------|--------|
+| 0     | product_id    | object  | 0    | 7796   | [0011c512eb256aa0dbbb544d8dffcf6e, 001b72dfd63...]                                           | NaN   | NaN   | NaN    | NaN   | NaN    |
+| 1     | price         | float64 | 0    | 2120   | [52.0, 34.99, 32.98, 79.99, 129.9, 39.9, 13.99...]                                             | 0.85  | 34.9  | 64.9   | 119.9 | 4799.0 |
 
 - The average price for each product was calculated by grouping the data by `product_id`. Products were grouped by `product_id`, and the mean price for each product was computed.  
 - The resulting dataset contains **7,796 unique products** with their average prices.  
@@ -747,153 +483,23 @@ product_price = orders_df.groupby('product_id').agg(
 products_df = pd.merge(products_df, product_price, on='product_id')
 ```
 
-<div id="df-b7a2cadb-4a3c-4662-95a9-608392887502" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>product_category_name</th>
-      <th>product_id</th>
-      <th>product_description_lenght</th>
-      <th>product_photos_qty</th>
-      <th>product_weight_g</th>
-      <th>volume_cm3</th>
-      <th>price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>health_beauty</td>
-      <td>50556c630443502c11acde1c320fe278</td>
-      <td>257</td>
-      <td>1</td>
-      <td>250</td>
-      <td>640</td>
-      <td>129.9</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Index | product_category_name | product_id                              | product_description_length | product_photos_qty | product_weight_g | volume_cm3 | price  |
+|-------|-----------------------|----------------------------------------|----------------------------|--------------------|------------------|------------|--------|
+| 0     | health_beauty         | 50556c630443502c11acde1c320fe278      | 257                        | 1                  | 250              | 640        | 129.9  |
 
 ```python
 (7795, 7)
 ```
 
-<div id="df-aee5a552-ee1a-445b-be7c-f4811ea717b7" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Column</th>
-      <th>Type</th>
-      <th>Null</th>
-      <th>Unique</th>
-      <th>Unique Values</th>
-      <th>Min</th>
-      <th>Q1</th>
-      <th>Median</th>
-      <th>Q3</th>
-      <th>Max</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>product_category_name</td>
-      <td>object</td>
-      <td>0</td>
-      <td>69</td>
-      <td>[health_beauty, computers_accessories, auto, b...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>product_id</td>
-      <td>object</td>
-      <td>0</td>
-      <td>7795</td>
-      <td>[50556c630443502c11acde1c320fe278, 12827caf723...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>product_description_lenght</td>
-      <td>int64</td>
-      <td>0</td>
-      <td>1802</td>
-      <td>[257, 3939, 677, 1935, 763, 991, 572, 803, 180...</td>
-      <td>0</td>
-      <td>296</td>
-      <td>528</td>
-      <td>878</td>
-      <td>3976</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>product_photos_qty</td>
-      <td>int64</td>
-      <td>0</td>
-      <td>17</td>
-      <td>[1, 6, 3, 2, 5, 4, 7, 10, 9, 8, 11, 13, 12, 15...</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>3</td>
-      <td>17</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>product_weight_g</td>
-      <td>int64</td>
-      <td>0</td>
-      <td>955</td>
-      <td>[250, 150, 750, 300, 217, 350, 2550, 100, 975,...</td>
-      <td>50</td>
-      <td>300</td>
-      <td>650</td>
-      <td>1647</td>
-      <td>30000</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>volume_cm3</td>
-      <td>int64</td>
-      <td>0</td>
-      <td>1932</td>
-      <td>[640, 4368, 4096, 4455, 4000, 3315, 3332, 990,...</td>
-      <td>352</td>
-      <td>2576</td>
-      <td>6300</td>
-      <td>16500</td>
-      <td>288000</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>price</td>
-      <td>float64</td>
-      <td>0</td>
-      <td>2120</td>
-      <td>[129.9, 57.5, 35.0, 139.56, 55.5, 35.79, 37.9,...</td>
-      <td>0.85</td>
-      <td>34.9</td>
-      <td>64.9</td>
-      <td>119.9</td>
-      <td>4799.0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Index | Column                     | Type     | Null | Unique | Unique Values                                                                                                                                         | Min   | Q1    | Median | Q3    | Max    |
+|-------|----------------------------|----------|------|--------|-------------------------------------------------------------------------------------------------------------------------------------------------------|-------|-------|--------|-------|--------|
+| 0     | product_category_name       | object   | 0    | 69     | [health_beauty, computers_accessories, auto, books, sports, electronics, furniture, etc.]                                                             | NaN   | NaN   | NaN    | NaN   | NaN    |
+| 1     | product_id                  | object   | 0    | 7795   | [50556c630443502c11acde1c320fe278, 12827caf723..., etc.]                                                                                           | NaN   | NaN   | NaN    | NaN   | NaN    |
+| 2     | product_description_length  | int64    | 0    | 1802   | [257, 3939, 677, 1935, 763, 991, 572, 803, 180...                                                                                                   | 0     | 296   | 528    | 878   | 3976   |
+| 3     | product_photos_qty          | int64    | 0    | 17     | [1, 6, 3, 2, 5, 4, 7, 10, 9, 8, 11, 13, 12, 15, etc.]                                                                                              | 0     | 1     | 1      | 3     | 17     |
+| 4     | product_weight_g            | int64    | 0    | 955    | [250, 150, 750, 300, 217, 350, 2550, 100, 975, ...                                                                                                  | 50    | 300   | 650    | 1647  | 30000  |
+| 5     | volume_cm3                  | int64    | 0    | 1932   | [640, 4368, 4096, 4455, 4000, 3315, 3332, 990, ...                                                                                                  | 352   | 2576  | 6300   | 16500 | 288000 |
+| 6     | price                       | float64  | 0    | 2120   | [129.9, 57.5, 35.0, 139.56, 55.5, 35.79, 37.9, ...                                                                                                  | 0.85  | 34.9  | 64.9   | 119.9 | 4799.0 |
 
 The `products_df` dataset was enriched by merging it with the product price dataset. The merge linked `product_id` column in both datasets , adding the average price of each product to the `products_df`.
 
@@ -958,57 +564,15 @@ Categorical features were created from continuous numerical variables to facilit
 
 Converting these numerical variables into categorical ones simplifies the comparison between products based on these attributes. The transformation is essential for content-based filtering, as it allows the recommendation system to identify and suggest products with similar characteristics more effectively.
 
-<div id="df-927272fc-99b3-4635-b509-abbd67edf3a4" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>column</th>
-      <th>Q1</th>
-      <th>Q2</th>
-      <th>Q3</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>product_description_lenght</td>
-      <td>365</td>
-      <td>713</td>
-      <td>3976</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>product_photos_qty</td>
-      <td>1</td>
-      <td>2</td>
-      <td>17</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>product_weight_g</td>
-      <td>375</td>
-      <td>1150</td>
-      <td>30000</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>volume_cm3</td>
-      <td>3564</td>
-      <td>11352</td>
-      <td>288000</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>price</td>
-      <td>42</td>
-      <td>94</td>
-      <td>4799</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+Here is a summary of the quartile values for the specified columns:
+
+| Column                     | 33rd    | 66th | 100th    |
+|----------------------------|-------|-------------|-------|
+| product_description_length  | 365   | 713         | 3976  |
+| product_photos_qty          | 1     | 2           | 17    |
+| product_weight_g            | 375   | 1150        | 30000 |
+| volume_cm3                  | 3564  | 11352       | 288000|
+| price                       | 42    | 94          | 4799  |
 
 The quantiles for key numerical variables were calculated to establish thresholds for categorizing them into groups for content-based filtering. The results for each variable are as follows above. These thresholds define the boundaries for the categories created in the previous step, ensuring that the grouping is based on the natural distribution of each variable. Data-driven segmentation improves the precision and relevance of the content-based filtering approach.
 
@@ -1026,75 +590,13 @@ products_df = products_df.drop(
 )
 ```
 
-<div id="df-5fb0d542-2fe8-4036-885d-b2417d7b6824" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>product_category_name</th>
-      <th>product_id</th>
-      <th>description_category</th>
-      <th>photos_category</th>
-      <th>weight_category</th>
-      <th>volume_category</th>
-      <th>price_category</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>health_beauty</td>
-      <td>50556c630443502c11acde1c320fe278</td>
-      <td>short_description</td>
-      <td>few_photos</td>
-      <td>light_weight</td>
-      <td>small_volume</td>
-      <td>high_price</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>health_beauty</td>
-      <td>12827caf723c4ff8030d64dcffe3cdab</td>
-      <td>long_description</td>
-      <td>many_photos</td>
-      <td>light_weight</td>
-      <td>medium_volume</td>
-      <td>medium_price</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>health_beauty</td>
-      <td>4a37bc772078a013df64fd661ae5ee6c</td>
-      <td>medium_description</td>
-      <td>few_photos</td>
-      <td>medium_weight</td>
-      <td>medium_volume</td>
-      <td>low_price</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>health_beauty</td>
-      <td>dbbda25f6b7c74669cf2203b2e3139a0</td>
-      <td>long_description</td>
-      <td>many_photos</td>
-      <td>light_weight</td>
-      <td>medium_volume</td>
-      <td>high_price</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>health_beauty</td>
-      <td>2fffbf105cbbc6e86144f00ecf571635</td>
-      <td>long_description</td>
-      <td>few_photos</td>
-      <td>light_weight</td>
-      <td>medium_volume</td>
-      <td>medium_price</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| product_category_name | product_id                           | description_category | photos_category | weight_category | volume_category | price_category |
+|-----------------------|--------------------------------------|----------------------|-----------------|-----------------|-----------------|----------------|
+| health_beauty         | 50556c630443502c11acde1c320fe278     | short_description    | few_photos      | light_weight    | small_volume    | high_price     |
+| health_beauty         | 12827caf723c4ff8030d64dcffe3cdab     | long_description     | many_photos     | light_weight    | medium_volume   | medium_price   |
+| health_beauty         | 4a37bc772078a013df64fd661ae5ee6c     | medium_description   | few_photos      | medium_weight   | medium_volume   | low_price      |
+| health_beauty         | dbbda25f6b7c74669cf2203b2e3139a0     | long_description     | many_photos     | light_weight    | medium_volume   | high_price     |
+| health_beauty         | 2fffbf105cbbc6e86144f00ecf571635     | long_description     | few_photos      | light_weight    | medium_volume   | medium_price   |
 
 The dataset was prepared for content-based filtering by separating categorical and numerical data.
 - The `cb_data` dataset contains categorical features for modeling in content-based filtering.  
@@ -1115,78 +617,18 @@ cb_data['combined_features'] = (
 cb_data = cb_data[['product_id', 'combined_features']]
 ```
 
-<div id="df-222258c6-4b82-4f75-8fc2-8a1a549b0828" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>product_id</th>
-      <th>combined_features</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>50556c630443502c11acde1c320fe278</td>
-      <td>health_beauty short_description few_photos lig...</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| product_id                           | combined_features                                      |
+|--------------------------------------|--------------------------------------------------------|
+| 50556c630443502c11acde1c320fe278     | health_beauty short_description few_photos light_weight small_volume high_price |
 
 ```python
 (7795, 2)
 ```
 
-<div id="df-f267617c-a62d-4f1e-80dd-9c70bcb13e4c" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Column</th>
-      <th>Type</th>
-      <th>Null</th>
-      <th>Unique</th>
-      <th>Unique Values</th>
-      <th>Min</th>
-      <th>Q1</th>
-      <th>Median</th>
-      <th>Q3</th>
-      <th>Max</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>product_id</td>
-      <td>object</td>
-      <td>0</td>
-      <td>7795</td>
-      <td>[50556c630443502c11acde1c320fe278, 12827caf723...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>combined_features</td>
-      <td>object</td>
-      <td>0</td>
-      <td>2254</td>
-      <td>[health_beauty short_description few_photos li...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Column             | Type   | Null | Unique | Unique Values                                                      | Min | Q1 | Median | Q3 | Max |
+|--------------------|--------|------|--------|-------------------------------------------------------------------|-----|----|--------|----|-----|
+| product_id         | object | 0    | 7795   | [50556c630443502c11acde1c320fe278, 12827caf723...]               | NaN | NaN | NaN    | NaN | NaN |
+| combined_features  | object | 0    | 2254   | [health_beauty short_description few_photos light_weight small_volume high_price, ...] | NaN | NaN | NaN    | NaN | NaN |
 
 A new column, `combined_features`, was created to consolidate all categorical attributes into a single textual representation for each product. The categorical attributes were concatenated into a single string per product. Textual representation captures all the relevant features for content-based filtering, allowing for easier similarity comparisons.  
 
@@ -1437,71 +879,13 @@ tfidf_df = pd.DataFrame(
 tfidf_df.index = cb_data['product_id']
 ```
 
-<div id="df-ceb8f8d4-6192-4098-abfd-a8ddcab16b7a" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>short_description</th>
-      <th>agro_industry_and_commerce</th>
-      <th>market_place</th>
-      <th>drinks</th>
-      <th>cine_photo</th>
-    </tr>
-    <tr>
-      <th>product_id</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>e799a2b8707a6a256fa3c040b75d2713</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>1c6fb703c624b381a20f21f757694866</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>6d0a373c460a041c86167a92a5d3383e</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>40678c9096047877fa74a25cc6f0a726</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>b8a0d73b2a06e7910d9864dccdb0cda2</th>
-      <td>0.358</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| product_id                              | short_description | agro_industry_and_commerce | market_place | drinks | cine_photo |
+|-----------------------------------------|-------------------|----------------------------|--------------|--------|------------|
+| e799a2b8707a6a256fa3c040b75d2713       | 0                 | 0                          | 0            | 0      | 0          |
+| 1c6fb703c624b381a20f21f757694866       | 0                 | 0                          | 0            | 0      | 0          |
+| 6d0a373c460a041c86167a92a5d3383e       | 0                 | 0                          | 0            | 0      | 0          |
+| 40678c9096047877fa74a25cc6f0a726       | 0                 | 0                          | 0            | 0      | 0          |
+| b8a0d73b2a06e7910d9864dccdb0cda2       | 0.358             | 0                          | 0            | 0      | 0          |
 
 The TF-IDF matrix was converted into a DataFrame for easier processing.
 
@@ -1537,63 +921,13 @@ cosine_similarity_df = pd.DataFrame(
 )
 ```
 
-<div id="df-d7dc4a9e-65a4-4036-b512-8fb13907f166" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>e799a2b8707a6a256fa3c040b75d2713</th>
-      <th>1c6fb703c624b381a20f21f757694866</th>
-      <th>6d0a373c460a041c86167a92a5d3383e</th>
-      <th>40678c9096047877fa74a25cc6f0a726</th>
-      <th>b8a0d73b2a06e7910d9864dccdb0cda2</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>e799a2b8707a6a256fa3c040b75d2713</th>
-      <td>1.000</td>
-      <td>0.231</td>
-      <td>1.000</td>
-      <td>0.113</td>
-      <td>0.131</td>
-    </tr>
-    <tr>
-      <th>1c6fb703c624b381a20f21f757694866</th>
-      <td>0.231</td>
-      <td>1.000</td>
-      <td>0.231</td>
-      <td>0.271</td>
-      <td>0.114</td>
-    </tr>
-    <tr>
-      <th>6d0a373c460a041c86167a92a5d3383e</th>
-      <td>1.000</td>
-      <td>0.231</td>
-      <td>1.000</td>
-      <td>0.113</td>
-      <td>0.131</td>
-    </tr>
-    <tr>
-      <th>40678c9096047877fa74a25cc6f0a726</th>
-      <td>0.113</td>
-      <td>0.271</td>
-      <td>0.113</td>
-      <td>1.000</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>b8a0d73b2a06e7910d9864dccdb0cda2</th>
-      <td>0.131</td>
-      <td>0.114</td>
-      <td>0.131</td>
-      <td>0.000</td>
-      <td>1.000</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+|                                      | e799a2b8707a6a256fa3c040b75d2713 | 1c6fb703c624b381a20f21f757694866 | 6d0a373c460a041c86167a92a5d3383e | 40678c9096047877fa74a25cc6f0a726 | b8a0d73b2a06e7910d9864dccdb0cda2 |
+|--------------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|
+| e799a2b8707a6a256fa3c040b75d2713    | 1.000                             | 0.231                             | 1.000                             | 0.113                             | 0.131                             |
+| 1c6fb703c624b381a20f21f757694866    | 0.231                             | 1.000                             | 0.231                             | 0.271                             | 0.114                             |
+| 6d0a373c460a041c86167a92a5d3383e    | 1.000                             | 0.231                             | 1.000                             | 0.113                             | 0.131                             |
+| 40678c9096047877fa74a25cc6f0a726    | 0.113                             | 0.271                             | 0.113                             | 1.000                             | 0.000                             |
+| b8a0d73b2a06e7910d9864dccdb0cda2    | 0.131                             | 0.114                             | 0.131                             | 0.000                             | 1.000                             |
 
 The cosine similarity matrix was generated to compute the similarity between products based on their TF-IDF vectors.
 
@@ -1614,42 +948,13 @@ ordered_similarities = cosine_similarity_series.sort_values(ascending=False)
 ordered_similarities = ordered_similarities.head()
 ```
 
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>4d5bb93bfa70f67cda10b1428f2a252c</th>
-    </tr>
-    <tr>
-      <th>product_id</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>e65ab426efaf65e083b917d2e9eac80d</th>
-      <td>0.940</td>
-    </tr>
-    <tr>
-      <th>1589d392201547c9b78a117c0e2191dd</th>
-      <td>0.881</td>
-    </tr>
-    <tr>
-      <th>44feb28a74abb0f2f303412d60160750</th>
-      <td>0.881</td>
-    </tr>
-    <tr>
-      <th>652683d85a89f3b134e44989a601bc58</th>
-      <td>0.881</td>
-    </tr>
-    <tr>
-      <th>1da502ed939a029f4bee6cdc8341b4ac</th>
-      <td>0.821</td>
-    </tr>
-  </tbody>
-</table>
-</div><br>
+| product_id                             | 4d5bb93bfa70f67cda10b1428f2a252c |
+|----------------------------------------|-----------------------------------|
+| e65ab426efaf65e083b917d2e9eac80d      | 0.940                             |
+| 1589d392201547c9b78a117c0e2191dd      | 0.881                             |
+| 44feb28a74abb0f2f303412d60160750      | 0.881                             |
+| 652683d85a89f3b134e44989a601bc58      | 0.881                             |
+| 1da502ed939a029f4bee6cdc8341b4ac      | 0.821                             |
 
 The recommendation system generates product suggestions by identifying the most similar products to a given one based on cosine similarity scores.
 
@@ -1663,109 +968,21 @@ The system outputs a ranked list of the top 5 recommended products, based on the
 products_df[products_df['product_id'] == random_product_id]
 ```
 
-<div id="df-3da0cb4f-eeaf-48b1-91b1-43cbc69aedba" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>product_category_name</th>
-      <th>product_id</th>
-      <th>product_description_lenght</th>
-      <th>product_photos_qty</th>
-      <th>product_weight_g</th>
-      <th>volume_cm3</th>
-      <th>price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>7270</th>
-      <td>books_technical</td>
-      <td>4d5bb93bfa70f67cda10b1428f2a252c</td>
-      <td>250</td>
-      <td>1</td>
-      <td>500</td>
-      <td>5808</td>
-      <td>130.8</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| product_category_name | product_id                             | product_description_lenght | product_photos_qty | product_weight_g | volume_cm3 | price  |
+|-----------------------|----------------------------------------|----------------------------|--------------------|------------------|------------|--------|
+| books_technical       | 4d5bb93bfa70f67cda10b1428f2a252c      | 250                        | 1                  | 500              | 5808       | 130.8  |
 
 ```python
 products_df[products_df['product_id'].isin(ordered_similarities.index)]
 ```
 
-<div id="df-19c2ca12-4008-4d2e-999e-7dfb58be7705" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>product_category_name</th>
-      <th>product_id</th>
-      <th>product_description_lenght</th>
-      <th>product_photos_qty</th>
-      <th>product_weight_g</th>
-      <th>volume_cm3</th>
-      <th>price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>7259</th>
-      <td>books_technical</td>
-      <td>44feb28a74abb0f2f303412d60160750</td>
-      <td>1120</td>
-      <td>1</td>
-      <td>500</td>
-      <td>1350</td>
-      <td>127.00</td>
-    </tr>
-    <tr>
-      <th>7260</th>
-      <td>books_technical</td>
-      <td>1589d392201547c9b78a117c0e2191dd</td>
-      <td>1499</td>
-      <td>1</td>
-      <td>450</td>
-      <td>4356</td>
-      <td>24.97</td>
-    </tr>
-    <tr>
-      <th>7263</th>
-      <td>books_technical</td>
-      <td>e65ab426efaf65e083b917d2e9eac80d</td>
-      <td>445</td>
-      <td>1</td>
-      <td>500</td>
-      <td>6292</td>
-      <td>147.99</td>
-    </tr>
-    <tr>
-      <th>7265</th>
-      <td>books_technical</td>
-      <td>1da502ed939a029f4bee6cdc8341b4ac</td>
-      <td>1345</td>
-      <td>1</td>
-      <td>600</td>
-      <td>1104</td>
-      <td>29.45</td>
-    </tr>
-    <tr>
-      <th>7269</th>
-      <td>books_technical</td>
-      <td>652683d85a89f3b134e44989a601bc58</td>
-      <td>246</td>
-      <td>1</td>
-      <td>1100</td>
-      <td>1764</td>
-      <td>34.30</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| product_category_name | product_id                             | product_description_lenght | product_photos_qty | product_weight_g | volume_cm3 | price  |
+|-----------------------|----------------------------------------|----------------------------|--------------------|------------------|------------|--------|
+| books_technical       | 44feb28a74abb0f2f303412d60160750      | 1120                       | 1                  | 500              | 1350       | 127.00 |
+| books_technical       | 1589d392201547c9b78a117c0e2191dd      | 1499                       | 1                  | 450              | 4356       | 24.97  |
+| books_technical       | e65ab426efaf65e083b917d2e9eac80d      | 445                        | 1                  | 500              | 6292       | 147.99 |
+| books_technical       | 1da502ed939a029f4bee6cdc8341b4ac      | 1345                       | 1                  | 600              | 1104       | 29.45  |
+| books_technical       | 652683d85a89f3b134e44989a601bc58      | 246                        | 1                  | 1100             | 1764       | 34.30  |
 
 The CBF system identified the top 5 most similar products to the product with ID `4d5bb93bfa70f67cda10b1428f2a252c`. All recommended products belong to the same category, **books_technical**, demonstrating the system's ability to effectively identify similar items.  
 
@@ -1936,71 +1153,14 @@ predictions_df = pd.DataFrame(
 )
 ```
 
-<div id="df-c3a9332c-5037-4387-97e4-753e232702db" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>product_id</th>
-      <th>609b1b50202d276e56b2468006fa82aa</th>
-      <th>b57469faf40b556e16b9a49308953700</th>
-      <th>5c973b4202aac5c372a483e712306f4f</th>
-      <th>21fb5057dd6a737df6851a7ab7a130da</th>
-      <th>0449db5eede617c5fd413071d582f038</th>
-    </tr>
-    <tr>
-      <th>customer_unique_id</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>93affc403753dca0735740ee2458860a</th>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>1610d8d6bc3013aaf6e558ec18cc8350</th>
-      <td>5.0</td>
-      <td>5.0</td>
-      <td>5.0</td>
-      <td>5.0</td>
-      <td>5.0</td>
-    </tr>
-    <tr>
-      <th>5a85f706b2059c3cd55287e105d8d5ea</th>
-      <td>3.5</td>
-      <td>3.5</td>
-      <td>3.5</td>
-      <td>3.5</td>
-      <td>3.5</td>
-    </tr>
-    <tr>
-      <th>fcda364be74555da695b4afe5166c2b1</th>
-      <td>4.0</td>
-      <td>4.0</td>
-      <td>4.0</td>
-      <td>4.0</td>
-      <td>4.0</td>
-    </tr>
-    <tr>
-      <th>d92462d83762d5e5c112bccc344119e6</th>
-      <td>5.0</td>
-      <td>5.0</td>
-      <td>5.0</td>
-      <td>5.0</td>
-      <td>5.0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| product_id                              | 609b1b50202d276e56b2468006fa82aa | b57469faf40b556e16b9a49308953700 | 5c973b4202aac5c372a483e712306f4f | 21fb5057dd6a737df6851a7ab7a130da | 0449db5eede617c5fd413071d582f038 |
+|-----------------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|
+| customer_unique_id                      |                                   |                                   |                                   |                                   |                                   |
+| 93affc403753dca0735740ee2458860a       | 1.0                               | 1.0                               | 1.0                               | 1.0                               | 1.0                               |
+| 1610d8d6bc3013aaf6e558ec18cc8350       | 5.0                               | 5.0                               | 5.0                               | 5.0                               | 5.0                               |
+| 5a85f706b2059c3cd55287e105d8d5ea       | 3.5                               | 3.5                               | 3.5                               | 3.5                               | 3.5                               |
+| fcda364be74555da695b4afe5166c2b1       | 4.0                               | 4.0                               | 4.0                               | 4.0                               | 4.0                               |
+| d92462d83762d5e5c112bccc344119e6       | 5.0                               | 5.0                               | 5.0                               | 5.0                               | 5.0                               |
 
 The interaction matrix was reconstructed using the components obtained from Singular Value Decomposition (SVD). This process predicts the missing values in the user-item interaction matrix, enabling recommendations for unseen user-item interactions.
 
@@ -2028,42 +1188,13 @@ recommendations = predictions_df.loc[
 recommendations = recommendations.head()
 ```
 
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>175b8225bdd99e95a64e07a6c06e8746</th>
-    </tr>
-    <tr>
-      <th>product_id</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0011c512eb256aa0dbbb544d8dffcf6e</th>
-      <td>5.0</td>
-    </tr>
-    <tr>
-      <th>aacee6f1f7be193e891a8cca7a3a849a</th>
-      <td>5.0</td>
-    </tr>
-    <tr>
-      <th>abe171a94bee936786955f928bd764ab</th>
-      <td>5.0</td>
-    </tr>
-    <tr>
-      <th>abda62f854cffdc94184e6bccadc2286</th>
-      <td>5.0</td>
-    </tr>
-    <tr>
-      <th>abd7f7a1bd327a8f1f363abfc0f87391</th>
-      <td>5.0</td>
-    </tr>
-  </tbody>
-</table>
-</div><br>
+| product_id                              | 175b8225bdd99e95a64e07a6c06e8746 |
+|-----------------------------------------|------------------------------------|
+| 0011c512eb256aa0dbbb544d8dffcf6e       | 5.0                                |
+| aacee6f1f7be193e891a8cca7a3a849a       | 5.0                                |
+| abe171a94bee936786955f928bd764ab       | 5.0                                |
+| abda62f854cffdc94184e6bccadc2286       | 5.0                                |
+| abd7f7a1bd327a8f1f363abfc0f87391       | 5.0                                |
 
 The CF model generates product recommendations for a specific customer based on predicted review scores from the reconstructed interaction matrix.
 
@@ -2084,119 +1215,22 @@ list_of_products_bought = orders_df[
 products_df[products_df['product_id'].isin(list_of_products_bought)]
 ```
 
-<div id="df-381e4dcd-4836-41df-ad7d-99fba6531bdc" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>product_category_name</th>
-      <th>product_id</th>
-      <th>product_description_lenght</th>
-      <th>product_photos_qty</th>
-      <th>product_weight_g</th>
-      <th>volume_cm3</th>
-      <th>price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1824</th>
-      <td>bed_bath_table</td>
-      <td>8d944f9367ba7f153e0ab5b6dc7d063b</td>
-      <td>237</td>
-      <td>1</td>
-      <td>1500</td>
-      <td>13690</td>
-      <td>114.9</td>
-    </tr>
-    <tr>
-      <th>2208</th>
-      <td>bed_bath_table</td>
-      <td>151d7733b44e0c7b292d7e2efb5424a2</td>
-      <td>305</td>
-      <td>1</td>
-      <td>3950</td>
-      <td>19200</td>
-      <td>279.9</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| product_category_name | product_id       | product_description_lenght | product_photos_qty | product_weight_g | volume_cm3 | price  |
+|-----------------------|------------------|----------------------------|--------------------|------------------|------------|--------|
+| bed_bath_table        | 8d944f9367ba7f153e0ab5b6dc7d063b | 237                        | 1                  | 1500             | 13690      | 114.9  |
+| bed_bath_table        | 151d7733b44e0c7b292d7e2efb5424a2 | 305                        | 1                  | 3950             | 19200      | 279.9  |
 
 ```python
 products_df[products_df['product_id'].isin(recommendations.index)]
 ```
 
-<div id="df-2227fb43-045a-45d0-ad0d-955a08eee582" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>product_category_name</th>
-      <th>product_id</th>
-      <th>product_description_lenght</th>
-      <th>product_photos_qty</th>
-      <th>product_weight_g</th>
-      <th>volume_cm3</th>
-      <th>price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>795</th>
-      <td>auto</td>
-      <td>0011c512eb256aa0dbbb544d8dffcf6e</td>
-      <td>177</td>
-      <td>1</td>
-      <td>100</td>
-      <td>3840</td>
-      <td>52.00</td>
-    </tr>
-    <tr>
-      <th>1284</th>
-      <td>bed_bath_table</td>
-      <td>abe171a94bee936786955f928bd764ab</td>
-      <td>553</td>
-      <td>1</td>
-      <td>1300</td>
-      <td>7875</td>
-      <td>81.80</td>
-    </tr>
-    <tr>
-      <th>4487</th>
-      <td>housewares</td>
-      <td>abda62f854cffdc94184e6bccadc2286</td>
-      <td>810</td>
-      <td>4</td>
-      <td>800</td>
-      <td>16038</td>
-      <td>68.00</td>
-    </tr>
-    <tr>
-      <th>5990</th>
-      <td>fashion_bags_accessories</td>
-      <td>aacee6f1f7be193e891a8cca7a3a849a</td>
-      <td>726</td>
-      <td>6</td>
-      <td>100</td>
-      <td>1584</td>
-      <td>79.90</td>
-    </tr>
-    <tr>
-      <th>6217</th>
-      <td>fashion_bags_accessories</td>
-      <td>abd7f7a1bd327a8f1f363abfc0f87391</td>
-      <td>367</td>
-      <td>1</td>
-      <td>100</td>
-      <td>612</td>
-      <td>39.99</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| product_category_name          | product_id       | product_description_lenght | product_photos_qty | product_weight_g | volume_cm3 | price  |
+|--------------------------------|------------------|----------------------------|--------------------|------------------|------------|--------|
+| auto                           | 0011c512eb256aa0dbbb544d8dffcf6e | 177                        | 1                  | 100              | 3840       | 52.00  |
+| bed_bath_table                 | abe171a94bee936786955f928bd764ab | 553                        | 1                  | 1300             | 7875       | 81.80  |
+| housewares                     | abda62f854cffdc94184e6bccadc2286 | 810                        | 4                  | 800              | 16038      | 68.00  |
+| fashion_bags_accessories       | aacee6f1f7be193e891a8cca7a3a849a | 726                        | 6                  | 100              | 1584       | 79.90  |
+| fashion_bags_accessories       | abd7f7a1bd327a8f1f363abfc0f87391 | 367                        | 1                  | 100              | 612        | 39.99  |
 
 The CF system identified the top 5 recommended products for the customer with ID `175b8225bdd99e95a64e07a6c06e8746`. The recommendations span diverse categories, including **auto**, **housewares**, **fashion_bags_accessories**, and **bed_bath_table**, showcasing the system's ability to balance relevance and exploration.
 
@@ -2226,38 +1260,13 @@ customer_prof = products_bought_df.mean()
 customer_prof[customer_prof > 0].sort_values(ascending=False).head()
 ```
 
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>0</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>baby</th>
-      <td>0.696</td>
-    </tr>
-    <tr>
-      <th>many_photos</th>
-      <td>0.352</td>
-    </tr>
-    <tr>
-      <th>medium_volume</th>
-      <td>0.317</td>
-    </tr>
-    <tr>
-      <th>long_description</th>
-      <td>0.316</td>
-    </tr>
-    <tr>
-      <th>light_weight</th>
-      <td>0.300</td>
-    </tr>
-  </tbody>
-</table>
-</div><br>
+| Feature             | Correlation Value |
+|---------------------|-------------------|
+| baby                | 0.696             |
+| many_photos         | 0.352             |
+| medium_volume       | 0.317             |
+| long_description    | 0.316             |
+| light_weight        | 0.300             |
 
 A customer profile was generated based on the products they have purchased. The profile represents the average attributes of the items, highlighting the customer's preferences.  
 
@@ -2297,43 +1306,13 @@ sorted_similarity_df = similarity_df.sort_values(
 sorted_similarity_df = sorted_similarity_df.head()
 ```
 
-<div id="df-44accdcf-8c72-4625-9072-765131f4c0c9" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>similarity_score</th>
-    </tr>
-    <tr>
-      <th>product_id</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>103aed057190376889bc9e796affa24e</th>
-      <td>0.974</td>
-    </tr>
-    <tr>
-      <th>c8078bb7927143cdb008e3563230ca61</th>
-      <td>0.923</td>
-    </tr>
-    <tr>
-      <th>3b213ba02fcd0799a85c9c3580a3033d</th>
-      <td>0.877</td>
-    </tr>
-    <tr>
-      <th>14ad6805c263d8d758d648f46a06570e</th>
-      <td>0.877</td>
-    </tr>
-    <tr>
-      <th>cac9e5692471a0700418aa3400b9b2b1</th>
-      <td>0.877</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Product ID                              | Similarity Score |
+|-----------------------------------------|------------------|
+| 103aed057190376889bc9e796affa24e        | 0.974            |
+| c8078bb7927143cdb008e3563230ca61        | 0.923            |
+| 3b213ba02fcd0799a85c9c3580a3033d        | 0.877            |
+| 14ad6805c263d8d758d648f46a06570e        | 0.877            |
+| cac9e5692471a0700418aa3400b9b2b1        | 0.877            |
 
 The recommendation system generates product suggestions for a customer by identifying items most similar to their profile based on cosine similarity.  
 
@@ -2348,119 +1327,22 @@ The top 5 product recommendations for the customer are identified based on their
 products_df[products_df['product_id'].isin(list_of_products_bought)]
 ```
 
-<div id="df-45b55e20-5f4c-49b1-82a8-9779b488776f" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>product_category_name</th>
-      <th>product_id</th>
-      <th>product_description_lenght</th>
-      <th>product_photos_qty</th>
-      <th>product_weight_g</th>
-      <th>volume_cm3</th>
-      <th>price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>5273</th>
-      <td>baby</td>
-      <td>ac946196783ec18b207ead8a00d3f5c4</td>
-      <td>740</td>
-      <td>3</td>
-      <td>167</td>
-      <td>4725</td>
-      <td>54.9</td>
-    </tr>
-    <tr>
-      <th>5280</th>
-      <td>baby</td>
-      <td>b865aecbf934fe78d172e5a0f7a73ec0</td>
-      <td>1344</td>
-      <td>3</td>
-      <td>400</td>
-      <td>5120</td>
-      <td>149.9</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Product Category Name | Product ID                             | Product Description Length | Product Photos Quantity | Product Weight (g) | Volume (cm³) | Price  |
+|-----------------------|----------------------------------------|----------------------------|--------------------------|--------------------|--------------|--------|
+| baby                  | ac946196783ec18b207ead8a00d3f5c4       | 740                        | 3                        | 167                | 4725         | 54.9   |
+| baby                  | b865aecbf934fe78d172e5a0f7a73ec0       | 1344                       | 3                        | 400                | 5120         | 149.9  |
 
 ```python
 products_df[products_df['product_id'].isin(sorted_similarity_df.index)]
 ```
 
-<div id="df-fbca9e11-d7da-492f-9e1c-b5869753bebd" class="colab-df-container">
-    <div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>product_category_name</th>
-      <th>product_id</th>
-      <th>product_description_lenght</th>
-      <th>product_photos_qty</th>
-      <th>product_weight_g</th>
-      <th>volume_cm3</th>
-      <th>price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>5240</th>
-      <td>baby</td>
-      <td>103aed057190376889bc9e796affa24e</td>
-      <td>1355</td>
-      <td>4</td>
-      <td>332</td>
-      <td>3840</td>
-      <td>149.33</td>
-    </tr>
-    <tr>
-      <th>5259</th>
-      <td>baby</td>
-      <td>3b213ba02fcd0799a85c9c3580a3033d</td>
-      <td>1640</td>
-      <td>1</td>
-      <td>350</td>
-      <td>8000</td>
-      <td>54.90</td>
-    </tr>
-    <tr>
-      <th>5260</th>
-      <td>baby</td>
-      <td>c8078bb7927143cdb008e3563230ca61</td>
-      <td>1978</td>
-      <td>4</td>
-      <td>250</td>
-      <td>7865</td>
-      <td>19.90</td>
-    </tr>
-    <tr>
-      <th>5269</th>
-      <td>baby</td>
-      <td>14ad6805c263d8d758d648f46a06570e</td>
-      <td>782</td>
-      <td>1</td>
-      <td>350</td>
-      <td>4536</td>
-      <td>60.66</td>
-    </tr>
-    <tr>
-      <th>5286</th>
-      <td>baby</td>
-      <td>cac9e5692471a0700418aa3400b9b2b1</td>
-      <td>2440</td>
-      <td>1</td>
-      <td>375</td>
-      <td>8120</td>
-      <td>119.93</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+| Product Category Name | Product ID                             | Product Description Length | Product Photos Quantity | Product Weight (g) | Volume (cm³) | Price  |
+|-----------------------|----------------------------------------|----------------------------|--------------------------|--------------------|--------------|--------|
+| baby                  | 103aed057190376889bc9e796affa24e       | 1355                       | 4                        | 332                | 3840         | 149.33 |
+| baby                  | 3b213ba02fcd0799a85c9c3580a3033d       | 1640                       | 1                        | 350                | 8000         | 54.90  |
+| baby                  | c8078bb7927143cdb008e3563230ca61       | 1978                       | 4                        | 250                | 7865         | 19.90  |
+| baby                  | 14ad6805c263d8d758d648f46a06570e       | 782                        | 1                        | 350                | 4536         | 60.66  |
+| baby                  | cac9e5692471a0700418aa3400b9b2b1       | 2440                       | 1                        | 375                | 8120         | 119.93 |
 
 The recommendation system generates product suggestions for a customer based on their profile. Below are insights into the purchased and recommended products.
 
