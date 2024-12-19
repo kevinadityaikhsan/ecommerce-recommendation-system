@@ -1423,7 +1423,7 @@ The comparison between predicted and actual review scores highlights the collabo
 
 ```python
 # Calculate the RMSE between actual values and predictions in the holdout set.
-rmse = rmse(
+svd_rmse = rmse(
     holdout_set_value[holdout_mask],
     predictions_value[holdout_mask],
 ).round(2)
