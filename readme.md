@@ -1,4 +1,6 @@
-# **Ecommerce Recommendation System**
+# **E-commerce Recommendation System**
+
+![E-commerce](images/ecommerce.png)
 
 ## **1. Project Overview**
 
