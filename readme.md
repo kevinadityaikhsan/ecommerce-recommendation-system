@@ -6,7 +6,7 @@
 
 Olist, the largest department store in Brazilian marketplaces, bridges the gap between small businesses and a wide array of sales channels through a seamless and centralized platform. Merchants on Olist can sell their products easily while leveraging Olist's logistics network for efficient delivery. To enhance customer satisfaction and streamline their experience, Olist collects feedback through post-purchase surveys, providing valuable insights into the shopping experience[[1]](https://doi.org/10.3390/su152316151). These customer interactions present an opportunity to develop personalized recommendations, driving both customer engagement and seller success [[2]](https://doi.org/10.3390/su131910786).
 
-The project focuses on building a recommendation system using content-based filtering and collaborative filtering approaches. A robust recommendation system is essential to enhance the shopping experience, increase customer retention, and support Olist’s mission of empowering small businesses. Leveraging the collected data, the project aims to deliver accurate and personalized recommendations, drawing insights from customer feedback and product attributes to improve user satisfaction and overall marketplace performance.
+The project focuses on building a recommendation system using content-based filtering and collaborative filtering approaches. A robust recommendation system is essential to enhance the shopping experience, increase customer retention, and support Olist’s mission of empowering small businesses. Leveraging the collected data, the project aims to deliver accurate and personalized recommendations, drawing insights from customer feedback and product attributes to improve customer satisfaction and overall marketplace performance.
 
 ## **2. Business Understanding**
 
@@ -20,8 +20,8 @@ The primary goal is to develop a recommendation system that delivers accurate an
 
 ### **2.3. Solution statements**
 
-1. **Content-Based Filtering**: Analyze product attributes and customer preferences to suggest items similar to those they have purchased.
-2. **Collaborative Filtering**: Leveraging patterns in customer interactions and purchase history, recommend products based on the behavior and preferences of similar users.  
+1. **Content-Based Filtering**: Analyze product attributes and customer preferences to suggest products similar to those they have purchased.
+2. **Collaborative Filtering**: Leveraging patterns in customer interactions and purchase history, recommend products based on the behavior and preferences of similar customers.  
 
 ## **3. Data Understanding**
 
@@ -33,7 +33,7 @@ The dataset used for the project is the [**Brazilian E-Commerce Public Dataset b
 1. **Customers**: Contains customer IDs and unique customer identifiers, which are critical for understanding individual purchasing behavior and linking reviews and orders.  
 2. **Orders**: Provides order information, including order IDs and customer IDs, which helps in tracking purchasing patterns.  
 3. **Order Items**: Includes details about the products purchased in each order, such as product IDs and price, essential for mapping product preferences.  
-4. **Order Reviews**: Captures customer feedback in the form of review scores, crucial for building collaborative filtering models by identifying user satisfaction and preferences.  
+4. **Order Reviews**: Captures customer feedback in the form of review scores, crucial for building collaborative filtering models by identifying customer satisfaction and preferences.  
 5. **Products**: Contains product-level information, including product IDs, names, and physical attributes, which can be used for content-based filtering.  
 6. **Product Category**: Maps product categories name to English.
 
@@ -75,16 +75,16 @@ The relationships between these tables are illustrated in the dataset's schema. 
 | 2     | price       | float64 | 0    | 5968   | [58.9, 239.9, 199.0, 12.99, 199.9, 21.9, 19.9,...] | 0.85  | 39.9  | 74.99  | 134.9 | 6735.0 |
 
 **Order Items Table Information**
-- The `order_items_df` table consists of **112,650 records** and provides item-level details for customer orders.  
+- The `order_items_df` table consists of **112,650 records** and provides product-level details for customer orders.  
 - It includes three features:  
-  1. **`order_id`**: A unique identifier for each order, used to link with the `orders_df` table. There are **98,666 unique values**, indicating that some orders contain multiple items.  
+  1. **`order_id`**: A unique identifier for each order, used to link with the `orders_df` table. There are **98,666 unique values**, indicating that some orders contain multiple products.  
   2. **`product_id`**: A unique identifier for each product, used to link with the `products_df` table. There are **32,951 unique products** purchased across all orders.  
-  3. **`price`**: The price of the purchased item in Brazilian Real. Prices range from **0.85** to **6,735.00**, with a median price of **74.99**.  
+  3. **`price`**: The price of the purchased product in Brazilian Real. Prices range from **0.85** to **6,735.00**, with a median price of **74.99**.  
 - The table contains **no missing values.**
 
 **Relationship in the Schema**
-- The `order_id` column connects the `order_items_df` table to the `orders_df` table, enabling the identification of items within each order.  
-- The `product_id` column links the `order_items_df` table to the `products_df` table, allowing access to product attributes and categories for each item in an order.
+- The `order_id` column connects the `order_items_df` table to the `orders_df` table, enabling the identification of products within each order.  
+- The `product_id` column links the `order_items_df` table to the `products_df` table, allowing access to product attributes and categories for each product in an order.
 
 #### **3.1.3. Order Reviews**
 
@@ -127,7 +127,7 @@ The relationships between these tables are illustrated in the dataset's schema. 
 - The table contains **no missing values**, making it reliable for linking orders to customers and other related data.  
 
 **Relationship in the Schema**  
-- The `order_id` column connects the `orders_df` table to the `order_items_df` and `order_reviews_df` tables, enabling the linkage of orders to specific items and customer reviews.  
+- The `order_id` column connects the `orders_df` table to the `order_items_df` and `order_reviews_df` tables, enabling the linkage of orders to specific products and customer reviews.  
 - The `customer_id` column connects the `orders_df` table to the `customers_df` table, linking each order to the customer who placed it.  
 
 #### **3.1.5. Products**
@@ -199,7 +199,7 @@ The relationships between these tables are illustrated in the dataset's schema. 
 
 ![Price Distribution](images/image-1.png)
 
-The analysis of product prices reveals a highly skewed distribution, as shown in the histogram. The majority of product prices are concentrated below **500 BRL**, with only a small number of items priced above **1,000 BRL**. It's suggests that most products are relatively affordable, catering to a broader customer base. The boxplot further highlights the presence of significant outliers, with prices extending up to **6,735 BRL**, representing luxury or specialty items. The interquartile range (IQR) indicates that most product prices fall between approximately **39.9 BRL** and **134.9 BRL**. These insights suggest that while the marketplace primarily targets affordability, the inclusion of high-value products adds diversity to the catalog. These outliers may require careful consideration during the development of the recommendation system to ensure they do not overly influence results.
+The analysis of product prices reveals a highly skewed distribution, as shown in the histogram. The majority of product prices are concentrated below **500 BRL**, with only a small number of products priced above **1,000 BRL**. It's suggests that most products are relatively affordable, catering to a broader customer base. The boxplot further highlights the presence of significant outliers, with prices extending up to **6,735 BRL**, representing luxury or specialty products. The interquartile range (IQR) indicates that most product prices fall between approximately **39.9 BRL** and **134.9 BRL**. These insights suggest that while the marketplace primarily targets affordability, the inclusion of high-value products adds diversity to the catalog. These outliers may require careful consideration during the development of the recommendation system to ensure they do not overly influence results.
 
 #### **3.2.2. Review Score**
 
@@ -215,7 +215,7 @@ Review scores distribution demonstrates that the platform generally maintains a 
 
 The analysis of product category distribution highlights the top 10 most popular categories in the dataset. The **bed, bath, and table** category leads with **3,029 products (9.19%)**, followed by **sports leisure** at **2,867 products (8.70%)**, and **furniture decor** with **2,657 products (8.06%)**. Other notable categories include **health beauty (7.42%)**, **housewares (7.09%)**, and **auto (5.77%)**. The categories **computers accessories**, **toys**, **watches gifts**, and **telephony** each make up between **3.44% and 4.97%** of the total products.
 
-The distribution shows that the marketplace offers a wide range of categories, with household and lifestyle-related items dominating the catalog. These insights are crucial for developing the recommendation system, as they help in identifying key product categories that contribute significantly to customer engagement. Tailoring recommendations based on these popular categories could enhance customer satisfaction and increase sales.
+The distribution shows that the marketplace offers a wide range of categories, with household and lifestyle-related products dominating the catalog. These insights are crucial for developing the recommendation system, as they help in identifying key product categories that contribute significantly to customer engagement. Tailoring recommendations based on these popular categories could enhance customer satisfaction and increase sales.
 
 | Index | Value              | Potential_Match    | Similarity |
 |-------|--------------------|--------------------|------------|
@@ -299,7 +299,7 @@ The resulting table contains **112,372 records** and five columns.
 - **`order_id`**: Unique identifier for each order.  
 - **`customer_unique_id`**: Unique identifier for customers, ensuring customer-level analysis.  
 - **`product_id`**: Identifier for purchased products.  
-- **`price`**: Price of each purchased item.  
+- **`price`**: Price of each purchased product.  
 - **`review_score`**: Customer feedback score for each order.  
 
 Consolidated dataset is essential for connecting customer, product, and review data, forming the foundation for building the recommendation system.
@@ -667,7 +667,7 @@ The recommendation system generates product suggestions by identifying the most 
 - The similarity scores were sorted in descending order, ranking products from most to least similar to the selected product.
 - The top 5 most similar products were selected, representing the closest matches based on their features.
 
-The system outputs a ranked list of the top 5 recommended products, based on their similarity scores to the selected product. These recommendations demonstrate the practical application of CBF for suggesting similar items to customers.
+The system outputs a ranked list of the top 5 recommended products, based on their similarity scores to the selected product. These recommendations demonstrate the practical application of CBF for suggesting similar products to customers.
 
 | product_category_name | product_id                             | product_description_lenght | product_photos_qty | product_weight_g | volume_cm3 | price  |
 |-----------------------|----------------------------------------|----------------------------|--------------------|------------------|------------|--------|
@@ -681,7 +681,7 @@ The system outputs a ranked list of the top 5 recommended products, based on the
 | books_technical       | 1da502ed939a029f4bee6cdc8341b4ac      | 1345                       | 1                  | 600              | 1104       | 29.45  |
 | books_technical       | 652683d85a89f3b134e44989a601bc58      | 246                        | 1                  | 1100             | 1764       | 34.30  |
 
-The CBF system identified the top 5 most similar products to the product with ID `4d5bb93bfa70f67cda10b1428f2a252c`. All recommended products belong to the same category, **books_technical**, demonstrating the system's ability to effectively identify similar items.  
+The CBF system identified the top 5 most similar products to the product with ID `4d5bb93bfa70f67cda10b1428f2a252c`. All recommended products belong to the same category, **books_technical**, demonstrating the system's ability to effectively identify similar products.  
 
 Features such as **description length**, **photos quantity**, **weight**, **volume**, and **price** are closely aligned with the target product, ensuring the recommendations are relevant. The results showcase the effectiveness of the content-based filtering model in generating tailored product suggestions based on shared attributes.
 
@@ -754,7 +754,7 @@ Collaborative Filtering (CF) is a recommendation system technique that suggests 
 
 #### **Applications of Collaborative Filtering**
 
-1. **E-Commerce**: Suggesting products based on purchase history or user ratings.  
+1. **E-Commerce**: Suggesting products based on purchase history or customer ratings.  
 2. **Streaming Services**: Recommending movies, music, or TV shows based on user preferences.  
 3. **Social Media**: Suggesting friends, groups, or content based on shared interests or behaviors.  
 4. **Online Education**: Proposing courses or study materials based on interactions and ratings.
@@ -763,7 +763,7 @@ CF is a widely used recommendation technique due to its flexibility and ability 
 
 #### **5.2.1. Singular Value Decomposition**
 
-Singular Value Decomposition (SVD) is a mathematical technique used to factorize a matrix into three components: two orthogonal matrices and a diagonal matrix of singular values. In collaborative filtering, SVD is applied to the user-item interaction matrix to uncover latent factors that represent hidden relationships between users and items.
+Singular Value Decomposition (SVD) is a mathematical technique used to factorize a matrix into three components: two orthogonal matrices and a diagonal matrix of singular values. In collaborative filtering, SVD is applied to the user-item interaction matrix to uncover latent factors that represent hidden relationships between customers and products.
 
 **Mathematical Formula**
 
@@ -772,16 +772,16 @@ For a given matrix $R$ of dimensions $m \times n$ (e.g., a user-item matrix):
 $$R = U \Sigma V^T$$
 
 Where:
-- $U$ is an $m \times k$ matrix containing the left singular vectors, representing user latent factors.
+- $U$ is an $m \times k$ matrix containing the left singular vectors, representing customer latent factors.
 - $\Sigma$ is a $k \times k$ diagonal matrix of singular values, representing the importance of each latent factor.
-- $V^T$ is a $k \times n$ matrix containing the right singular vectors, representing item latent factors.
+- $V^T$ is a $k \times n$ matrix containing the right singular vectors, representing product latent factors.
 - $k$ is the rank of the matrix (or a reduced dimension for approximation).
 
 **Core Concepts**
 
 - **Latent Factor Discovery**
 
-    SVD decomposes the interaction matrix into latent factors for users and items, which capture hidden patterns such as user preferences and item characteristics.
+    SVD decomposes the interaction matrix into latent factors for customers and products, which capture hidden patterns such as customer preferences and product characteristics.
 
 - **Dimensionality Reduction**
 
@@ -797,7 +797,7 @@ Where:
 
 ![SVD](images/image-5.png)
 
-SVD is a foundational technique in recommendation systems, enabling robust prediction of missing values and enhancing the ability to personalize recommendations based on hidden user and item characteristics [[4]](https://app.datacamp.com/learn/courses/building-recommendation-engines-in-python).
+SVD is a foundational technique in recommendation systems, enabling robust prediction of missing values and enhancing the ability to personalize recommendations based on hidden customer and product characteristics [[4]](https://app.datacamp.com/learn/courses/building-recommendation-engines-in-python).
 
 ```python
 [[3.464 0.    0.    0.    0.    0.   ]
@@ -812,9 +812,9 @@ The Singular Value Decomposition (SVD) process was applied to decompose the user
 
 1. **Decomposing the Matrix**
    - The `training_set_centered` matrix was decomposed using the `svds` function, resulting in three matrices.
-     - $U$: Contains user latent factors.
+     - $U$: Contains customer latent factors.
      - $\Sigma$: A diagonal matrix of singular values representing the importance of each latent factor.
-     - $V^T$: Contains item latent factors.
+     - $V^T$: Contains product latent factors.
 
 2. **Converting $\Sigma$ into a Diagonal Matrix**
    - The singular values extracted by `svds` were converted into a diagonal matrix using `np.diag`, making them ready for reconstruction or dimensionality reduction.
@@ -836,16 +836,16 @@ This decomposition lays the foundation for generating recommendations by reconst
 The interaction matrix was reconstructed using the components obtained from Singular Value Decomposition (SVD). This process predicts the missing values in the user-item interaction matrix, enabling recommendations for unseen user-item interactions.
 
 1. **Matrix Reconstruction**
-   - The dot product of $U$ (user latent factors) and $\Sigma$ (singular values) was calculated to obtain $U \Sigma$.
-   - The result was further multiplied with $V^T$ (item latent factors), reconstructing the interaction matrix in its centered form $( U \Sigma V^T)$.
+   - The dot product of $U$ (customer latent factors) and $\Sigma$ (singular values) was calculated to obtain $U \Sigma$.
+   - The result was further multiplied with $V^T$ (product latent factors), reconstructing the interaction matrix in its centered form $( U \Sigma V^T)$.
 
 2. **Adding Row Means**
    - The row-wise mean ratings (`avg_ratings`) were added back to the reconstructed matrix to restore the original scale of review scores. This adjustment ensures that the predicted values align with the actual rating scale.
 
 3. **Saving Reconstructed Matrix**
-   - The final reconstructed matrix, containing predicted review scores for all user-item pairs, was converted into a DataFrame (`predictions_df`) with users as rows and items as columns.
+   - The final reconstructed matrix, containing predicted review scores for all user-item pairs, was converted into a DataFrame (`predictions_df`) with customers as rows and products as columns.
 
-The `predictions_df` now contains predicted review scores for all users and items, filling in the missing values in the original matrix. These predictions form the basis for recommending items to users by identifying those with the highest predicted scores. This reconstructed matrix captures the latent relationships between users and items, enabling the system to predict user preferences for items they have not interacted with.
+The `predictions_df` now contains predicted review scores for all customers and products, filling in the missing values in the original matrix. These predictions form the basis for recommending products to customers by identifying those with the highest predicted scores. This reconstructed matrix captures the latent relationships between customers and products, enabling the system to predict customer preferences for products they have not interacted with.
 
 #### **5.2.3. Product Recommendation**
 
@@ -859,12 +859,12 @@ The `predictions_df` now contains predicted review scores for all users and item
 
 The CF model generates product recommendations for a specific customer based on predicted review scores from the reconstructed interaction matrix.
 
-- A customer ID was randomly selected from those who have provided a review score of 5, ensuring that the recommendations target a highly engaged user.
+- A customer ID was randomly selected from those who have provided a review score of 5, ensuring that the recommendations target a highly engaged customer.
 - Predicted review scores for all products were retrieved from the `predictions_df` for the selected customer.
 - The predicted review scores were sorted in descending order, ranking products from most to least preferred.
 - The top 5 products with the highest predicted review scores were selected as recommendations.
 
-CF model’s predict user preferences based on latent factors derived from the interaction matrix. The selected items are highly tailored to the customer’s inferred interests, enabling a personalized recommendation experience.  
+CF model’s predict customer preferences based on latent factors derived from the interaction matrix. The selected products are highly tailored to the customer’s inferred interests, enabling a personalized recommendation experience.  
 
 | product_category_name | product_id       | product_description_lenght | product_photos_qty | product_weight_g | volume_cm3 | price  |
 |-----------------------|------------------|----------------------------|--------------------|------------------|------------|--------|
@@ -899,7 +899,7 @@ The effectiveness of the CBF system was evaluated by analyzing the alignment of 
 | long_description    | 0.316             |
 | light_weight        | 0.301             |
 
-A customer profile was generated based on the products they have purchased. The profile represents the average attributes of the items, highlighting the customer's preferences.  
+A customer profile was generated based on the products they have purchased. The profile represents the average attributes of the products, highlighting the customer's preferences.  
 
 - A subset of the TF-IDF DataFrame (`tfidf_df`) was created, containing only the rows corresponding to the products purchased by the customer.  
 - The average scores of the features for the purchased products were calculated, forming the customer's profile.  
@@ -920,14 +920,14 @@ The customer's profile reveals preferences for the following top features.
 | 14ad6805c263d8d758d648f46a06570e        | 0.877            |
 | cac9e5692471a0700418aa3400b9b2b1        | 0.877            |
 
-The recommendation system generates product suggestions for a customer by identifying items most similar to their profile based on cosine similarity.  
+The recommendation system generates product suggestions for a customer by identifying products most similar to their profile based on cosine similarity.  
 
 - The `tfidf_df` was filtered to exclude products the customer has already purchased (`list_of_products_bought`). This ensures recommendations include only new products.  
 - The customer's profile vector was compared with the remaining products in the `tfidf_subset_df` using cosine similarity, generating a similarity score for each product.  
 - The resulting similarity scores were wrapped in `similarity_df` for easier analysis.  
-- The products were sorted in descending order by their similarity scores, ranking the most relevant items at the top.  
+- The products were sorted in descending order by their similarity scores, ranking the most relevant products at the top.  
 
-The top 5 product recommendations for the customer are identified based on their similarity to the customer’s preferences. These recommendations are tailored to the customer's profile, suggesting items most aligned with their past purchasing behavior and interests.
+The top 5 product recommendations for the customer are identified based on their similarity to the customer’s preferences. These recommendations are tailored to the customer's profile, suggesting products most aligned with their past purchasing behavior and interests.
 
 | Product Category Name | Product ID                             | Product Description Length | Product Photos Quantity | Product Weight (g) | Volume (cm³) | Price  |
 |-----------------------|----------------------------------------|----------------------------|--------------------------|--------------------|--------------|--------|
@@ -949,16 +949,16 @@ The recommendation system generates product suggestions for a customer based on 
 The customer has previously purchased two products in the **baby** category.
 - Products with moderate description lengths (**740** and **1344 characters**).
 - Consistent photo count (**3 photos** for both products).
-- Lightweight items (**167 g** and **400 g**) with moderate volumes.
+- Lightweight products (**167 g** and **400 g**) with moderate volumes.
 
 **Recommended Products**
 
 The system recommended five new products in the **baby** category, which align with the customer’s preferences.
 - Products with detailed descriptions (ranging from **782 to 2440 characters**).
-- Varied photo counts (**1 to 4 photos**), including higher photo counts than previously purchased items.
-- Lightweight items (weights between **250 g and 375 g**) and moderate to large volumes.
+- Varied photo counts (**1 to 4 photos**), including higher photo counts than previously purchased products.
+- Lightweight products (weights between **250 g and 375 g**) and moderate to large volumes.
 
-The recommended products closely match the customer’s preference for the **baby** category, lightweight products, and moderate-to-detailed descriptions. The recommendation system effectively suggests items that complement the customer’s profile while introducing new options, such as varying photo counts and slightly different volumes.
+The recommended products closely match the customer’s preference for the **baby** category, lightweight products, and moderate-to-detailed descriptions. The recommendation system effectively suggests products that complement the customer’s profile while introducing new options, such as varying photo counts and slightly different volumes.
 
 #### **6.1.2. Quantitative Evaluation Metrics**
 
@@ -1000,8 +1000,8 @@ Root Mean Squared Error (RMSE) is a standard metric for evaluating the accuracy 
 $$RMSE = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}$$
 
 Where:
-- $y_i$: Actual user rating for an item.
-- $\hat{y}_i$: Predicted rating for the same item (from the reconstructed matrix).
+- $y_i$: Actual customer rating for an product.
+- $\hat{y}_i$: Predicted rating for the same product (from the reconstructed matrix).
 - $n$: Total number of predicted ratings being evaluated.
 
 RMSE outputs a single value that quantifies the prediction error, expressed in the same unit as the ratings (e.g., on a scale of 1 to 5).
@@ -1014,13 +1014,13 @@ RMSE outputs a single value that quantifies the prediction error, expressed in t
 [5. 4. 5. 3. 5. 2. 1. 1. 1. 5. 1. 1. 5. 3. 3. 5. 4. 4. 5. 5.]
 ```
 
-The comparison between predicted and actual review scores highlights the collaborative filtering model’s accuracy in approximating user preferences. Predicted ratings from the reconstructed interaction matrix closely align with actual ratings from the holdout set, with minimal deviations observed. The analysis demonstrates strong performance and forms the basis for calculating evaluation metrics such as RMSE, which quantifies the model's prediction error.
+The comparison between predicted and actual review scores highlights the collaborative filtering model’s accuracy in approximating customer preferences. Predicted ratings from the reconstructed interaction matrix closely align with actual ratings from the holdout set, with minimal deviations observed. The analysis demonstrates strong performance and forms the basis for calculating evaluation metrics such as RMSE, which quantifies the model's prediction error.
 
 ```python
 RMSE of SVD Predictions: 0.86
 ```
 
-The performance of the collaborative filtering model using SVD was evaluated by calculating the Root Mean Squared Error (RMSE) between predicted and actual review scores. The RMSE value of **0.86** indicates the average deviation of the predicted ratings from the actual ratings. This low RMSE demonstrates that the model effectively captures user preferences and provides accurate predictions, confirming its reliability for generating recommendations.
+The performance of the collaborative filtering model using SVD was evaluated by calculating the Root Mean Squared Error (RMSE) between predicted and actual review scores. The RMSE value of **0.86** indicates the average deviation of the predicted ratings from the actual ratings. This low RMSE demonstrates that the model effectively captures customer preferences and provides accurate predictions, confirming its reliability for generating recommendations.
 
 ![RMSE](images/image-6.png)
 
@@ -1030,15 +1030,15 @@ The RMSE analysis across review scores reveals that the collaborative filtering 
 
 Recommendation system successfully developed using **content-based filtering** and **collaborative filtering** approaches, delivering personalized product suggestions to improve customer satisfaction and merchant success on the Olist platform.  
 
-1. **Content-Based Filtering Results**:  
-   - Products were recommended based on shared attributes such as **category**, **description length**, **number of photos**, **weight**, **volume**, and **price**.  
-   - The system demonstrated strong relevance by recommending products closely aligned with the user’s purchasing history while maintaining diversity in features to enhance product discovery.  
+1. **Content-Based Filtering Results**:
+   - Content-based filtering using **TF-IDF** and **cosine similarity** recommended products based on shared attributes such as **category**, **description length**, **number of photos**, **weight**, **volume**, and **price**.
+   - The system demonstrated strong relevance by recommending products closely aligned with the customer’s purchasing history while maintaining diversity in features to enhance product discovery. 
 
 2. **Collaborative Filtering Results**:  
-   - Collaborative filtering using **Singular Value Decomposition (SVD)** predicted user review scores for products, enabling recommendations based on latent patterns in user behavior.  
+   - Collaborative filtering using **Singular Value Decomposition (SVD)** predicted customer review scores for products, enabling recommendations based on latent patterns in customer behavior.  
    - The model achieved an overall **RMSE of 0.86**, indicating accurate prediction performance. Analysis across review scores revealed the model performed best for higher ratings, with the lowest RMSE of **0.70** for review score 4.  
 
-The system effectively balances relevance and diversity, ensuring that users receive accurate, tailored recommendations while discovering new products. Improved recommendation accuracy supports Olist’s goals of increasing customer engagement, boosting sales, and empowering small businesses across its platform.
+The system effectively balances relevance and diversity, ensuring that customers receive accurate, tailored recommendations while discovering new products. Improved recommendation accuracy supports Olist’s goals of increasing customer engagement, boosting sales, and empowering small businesses across its platform.
 
 ## **7. References**
 
