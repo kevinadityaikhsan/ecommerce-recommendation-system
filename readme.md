@@ -246,145 +246,27 @@ The comparison of unique categories between `products_df` and `product_category_
 
 #### **4.2.1. Products**
 
-```python
-# List of numerical columns to handle missing values.
-numerical_columns = [
-    'product_name_lenght',
-    'product_description_lenght',
-    'product_photos_qty',
-]
+- Null values in `product_name_lenght`, `product_description_lenght`, and `product_photos_qty` were filled with **0** to retain all products in the dataset. Rows with null or zero values in product measurement columns (`product_weight_g`, `product_length_cm`, `product_height_cm`, `product_width_cm`) were removed to ensure the accuracy of physical product attributes. These steps are necessary to maintain data consistency and reliability for analysis and modeling.
 
-# Fill missing values in numerical columns with 0.
-for col in numerical_columns:
-    products_df[col].fillna(0, inplace=True)
+- The numerical columns in `products_df`, including `product_name_length`, `product_description_length`, `product_photos_qty`, `product_weight_g`, `product_length_cm`, `product_height_cm`, and `product_width_cm`, were converted to integer format. The transformation optimizes memory usage and ensures consistency, as the data contains only integer-like values.
 
-# List of measurement columns to check for missing or zero values.
-measurement_columns = [
-    'product_weight_g',
-    'product_length_cm',
-    'product_height_cm',
-    'product_width_cm'
-]
+- A new feature, `volume_cm3`, was created by calculating the product of `product_length_cm`, `product_height_cm`, and `product_width_cm`, representing the product's volume in cubic centimeters. The original columns used for the calculation (`product_length_cm`, `product_height_cm`, `product_width_cm`) were dropped to simplify the dataset and avoid redundancy. The dataset enhances by consolidating dimensional attributes into a single, more useful feature for analysis.
 
-# Drop rows with missing values in measurement columns.
-products_df = products_df.dropna(subset=measurement_columns)
-
-# Filter out rows with zero values in measurement columns.
-products_df = products_df[(products_df[measurement_columns] != 0).all(axis=1)]
-```
-
-Null values in `product_name_lenght`, `product_description_lenght`, and `product_photos_qty` were filled with **0** to retain all products in the dataset. Rows with null or zero values in product measurement columns (`product_weight_g`, `product_length_cm`, `product_height_cm`, `product_width_cm`) were removed to ensure the accuracy of physical product attributes. These steps are necessary to maintain data consistency and reliability for analysis and modeling.
-
-```python
-# Convert numerical and measurement columns to integer
-for col in numerical_columns + measurement_columns:
-    products_df[col] = products_df[col].astype(int)
-```
-
-The numerical columns in `products_df`, including `product_name_length`, `product_description_length`, `product_photos_qty`, `product_weight_g`, `product_length_cm`, `product_height_cm`, and `product_width_cm`, were converted to integer format. The transformation optimizes memory usage and ensures consistency, as the data contains only integer-like values.
-
-```python
-# Calculate product volume in cubic centimeters.
-products_df['volume_cm3'] = (
-    products_df['product_length_cm']
-    * products_df['product_height_cm']
-    * products_df['product_width_cm']
-)
-
-# Drop unnecessary columns after volume calculation.
-products_df = products_df.drop([
-    'product_name_lenght',
-    'product_length_cm',
-    'product_height_cm',
-    'product_width_cm'
-], axis=1)
-```
-
-A new feature, `volume_cm3`, was created by calculating the product of `product_length_cm`, `product_height_cm`, and `product_width_cm`, representing the product's volume in cubic centimeters. The original columns used for the calculation (`product_length_cm`, `product_height_cm`, `product_width_cm`) were dropped to simplify the dataset and avoid redundancy. The dataset enhances by consolidating dimensional attributes into a single, more useful feature for analysis.
-
-```python
-correct_typos(products_df['product_category_name'])
-```
-
-```python
-Iteration 1: Corrections: 2
-No more potential typos found in product_category_name.
-```
-
-The `product_category_name` column in `products_df` was cleaned through typo correction. In a single iteration, 2 corrections were made, ensuring consistency and standardization of category names. The cleaning process confirmed that no further typos remain, resulting in a fully standardized `product_category_name` column.
+- The `product_category_name` column in `products_df` was cleaned through typo correction. In a single iteration, 2 corrections were made, ensuring consistency and standardization of category names. The cleaning process confirmed that no further typos remain, resulting in a fully standardized `product_category_name` column.
 
 #### **4.2.2. Product Category**
 
-```python
-correct_typos(product_category_df['product_category_name'])
+- The `product_category_name` column in `product_category_df` was cleaned through typo correction. In a single iteration, 2 corrections were made, ensuring the consistency and standardization of category names. The cleaning process confirmed that no further typos remain, resulting in a fully standardized `product_category_name` column.
 
-product_category_df = product_category_df.drop_duplicates(
-    subset='product_category_name'
-)
-```
+- The `product_category_name_english` column in `product_category_df` was cleaned by replacing "fashio_female_clothing" with "fashion_female_clothing" and "home_appliances_2" with "home_appliances." These corrections ensure consistency and accuracy in the English category names, aligning them with the intended standard naming conventions.
 
-```python
-Iteration 1: Corrections: 2
-No more potential typos found in product_category_name.
-```
+- Three new categories were successfully added to `product_category_df` to address previously identified missing entries. These include "portateis_cozinha_e_preparadores_de_alimentos" with its English equivalent "portable_kitchen_food_preparers," "pc_gamer," and a placeholder category for missing or undefined values with the English equivalent "others." The update ensures complete mapping between Portuguese and English category names and resolves gaps in the dataset.
 
-The `product_category_name` column in `product_category_df` was cleaned through typo correction. In a single iteration, 2 corrections were made, ensuring the consistency and standardization of category names. The cleaning process confirmed that no further typos remain, resulting in a fully standardized `product_category_name` column.
-
-```python
-# Correct typo in the product category name for female clothing.
-product_category_df['product_category_name_english'] = product_category_df[
-    'product_category_name_english'
-].replace('fashio_female_clothing', 'fashion_female_clothing')
-
-# Correct typo in the product category name for home appliances.
-product_category_df['product_category_name_english'] = product_category_df[
-    'product_category_name_english'
-].replace('home_appliances_2', 'home_appliances')
-```
-
-The `product_category_name_english` column in `product_category_df` was cleaned by replacing "fashio_female_clothing" with "fashion_female_clothing" and "home_appliances_2" with "home_appliances." These corrections ensure consistency and accuracy in the English category names, aligning them with the intended standard naming conventions.
-
-```python
-# New categories to add to 'product_category_df'.
-new_categories = [
-    {'product_category_name': 'portateis_cozinha_e_preparadores_de_alimentos',
-     'product_category_name_english': 'portable_kitchen_food_preparers'},
-    {'product_category_name': 'pc_gamer',
-     'product_category_name_english': 'pc_gamer'},
-    {'product_category_name': np.nan,
-     'product_category_name_english': 'others'},
-]
-
-# Add new categories to the DataFrame.
-product_category_df = pd.concat(
-    [product_category_df, pd.DataFrame(new_categories)],
-    ignore_index=True
-)
-```
-
-Three new categories were successfully added to `product_category_df` to address previously identified missing entries. These include "portateis_cozinha_e_preparadores_de_alimentos" with its English equivalent "portable_kitchen_food_preparers," "pc_gamer," and a placeholder category for missing or undefined values with the English equivalent "others." The update ensures complete mapping between Portuguese and English category names and resolves gaps in the dataset.
-
-```python
-# Merge 'products_df' with 'product_category_df' to get English category names.
-products_df = pd.merge(
-    product_category_df,
-    products_df,
-    on='product_category_name',
-    how='left'
-)
-
-# Drop the original Portuguese category name column.
-products_df = products_df.drop('product_category_name', axis=1)
-
-# Rename the English category name column for consistency.
-products_df = products_df.rename(
-    columns={'product_category_name_english': 'product_category_name'}
-)
-```
-
-The `products_df` dataset was enriched with English category names by merging it with `product_category_df` using the `product_category_name` column. The original Portuguese category name column was dropped, and the English category name column was renamed to `product_category_name` for consistency. The transformation ensures the dataset is standardized and easier to interpret for further analysis.
+- The `products_df` dataset was enriched with English category names by merging it with `product_category_df` using the `product_category_name` column. The original Portuguese category name column was dropped, and the English category name column was renamed to `product_category_name` for consistency. The transformation ensures the dataset is standardized and easier to interpret for further analysis.
 
 ### **4.3. Data Merging**
+
+#### **4.3.1. Orders, Customers, Order Items, and Order Reviews**
 
 | Index | order_id                          | customer_unique_id             | product_id                        | price  | review_score |
 |-------|-----------------------------------|---------------------------------|-----------------------------------|--------|--------------|
@@ -422,20 +304,7 @@ The resulting table contains **112,372 records** and five columns.
 
 Consolidated dataset is essential for connecting customer, product, and review data, forming the foundation for building the recommendation system.
 
-```python
-# Count unique products purchased by each customer.
-customer_product_counts = orders_df.groupby(
-    'customer_unique_id'
-)['product_id'].nunique()
-
-# Filter customers who purchased more than one unique product.
-filtered_customers = customer_product_counts[customer_product_counts > 1]
-
-# Keep only orders from filtered customers.
-orders_df = orders_df[
-    orders_df['customer_unique_id'].isin(filtered_customers.index)
-]
-```
+#### **4.3.2. Filtered Orders**
 
 | Index | order_id                            | customer_unique_id            | product_id                        | price | review_score |
 |-------|-------------------------------------|------------------------------|-----------------------------------|-------|--------------|
@@ -455,12 +324,7 @@ orders_df = orders_df[
 
 The dataset was filtered to include only customers who have purchased more than one unique product. The filtered dataset now contains **13,803 records** and **5,384 unique customers**. Noise reduced by focusing on customers with diverse purchasing behaviors, which are more informative for building recommendation models.
 
-```python
-# Calculate the average price for each product and round to 2 decimal places.
-product_price = orders_df.groupby('product_id').agg(
-    price=('price', 'mean'),
-).reset_index().round(2)
-```
+#### **4.3.3. Product Price**
 
 | Index | product_id                          | price |
 |-------|-------------------------------------|-------|
@@ -479,9 +343,7 @@ product_price = orders_df.groupby('product_id').agg(
 - The resulting dataset contains **7,796 unique products** with their average prices.  
 - Prices range from **0.85 BRL** to **4,799 BRL**, with a median price of **64.9 BRL**.  
 
-```python
-products_df = pd.merge(products_df, product_price, on='product_id')
-```
+#### **4.3.4. Products and Product Price**
 
 | Index | product_category_name | product_id                              | product_description_length | product_photos_qty | product_weight_g | volume_cm3 | price  |
 |-------|-----------------------|----------------------------------------|----------------------------|--------------------|------------------|------------|--------|
@@ -507,43 +369,6 @@ The `products_df` dataset was enriched by merging it with the product price data
 - No missing values were introduced during the merge, ensuring data completeness.
 
 ### **4.4. Content-Based Filtering**
-
-```python
-# Categorize product descriptions into short, medium, and long categories.
-products_df['description_category'] = pd.qcut(
-    products_df['product_description_lenght'],
-    q=3,
-    labels=["short_description", "medium_description", "long_description"]
-)
-
-# Categorize product photos into few, moderate, and many photos.
-products_df['photos_category'] = pd.qcut(
-    products_df['product_photos_qty'],
-    q=3,
-    labels=["few_photos", "moderate_photos", "many_photos"]
-)
-
-# Categorize product weights into light, medium, and heavy categories.
-products_df['weight_category'] = pd.qcut(
-    products_df['product_weight_g'],
-    q=3,
-    labels=["light_weight", "medium_weight", "heavy_weight"]
-)
-
-# Categorize product volumes into small, medium, and large categories.
-products_df['volume_category'] = pd.qcut(
-    products_df['volume_cm3'],
-    q=3,
-    labels=["small_volume", "medium_volume", "large_volume"]
-)
-
-# Categorize product prices into low, medium, and high price categories.
-products_df['price_category'] = pd.qcut(
-    products_df['price'],
-    q=3,
-    labels=["low_price", "medium_price", "high_price"]
-)
-```
 
 Categorical features were created from continuous numerical variables to facilitate content-based filtering. Using the `pd.qcut` function, each numerical variable was divided into three quantile-based categories:
 
@@ -576,20 +401,6 @@ Here is a summary of the quartile values for the specified columns:
 
 The quantiles for key numerical variables were calculated to establish thresholds for categorizing them into groups for content-based filtering. The results for each variable are as follows above. These thresholds define the boundaries for the categories created in the previous step, ensuring that the grouping is based on the natural distribution of each variable. Data-driven segmentation improves the precision and relevance of the content-based filtering approach.
 
-```python
-# Drop numeric columns and store the result in cb_data.
-cb_data = products_df.drop(
-    products_df.select_dtypes(include=np.number).columns,
-    axis=1
-)
-
-# Drop categorical columns from products_df.
-products_df = products_df.drop(
-    products_df.select_dtypes(include='category').columns,
-    axis=1
-)
-```
-
 | product_category_name | product_id                           | description_category | photos_category | weight_category | volume_category | price_category |
 |-----------------------|--------------------------------------|----------------------|-----------------|-----------------|-----------------|----------------|
 | health_beauty         | 50556c630443502c11acde1c320fe278     | short_description    | few_photos      | light_weight    | small_volume    | high_price     |
@@ -601,21 +412,6 @@ products_df = products_df.drop(
 The dataset was prepared for content-based filtering by separating categorical and numerical data.
 - The `cb_data` dataset contains categorical features for modeling in content-based filtering.  
 - The `products_df` remains as a separate dataset, focusing on numerical attributes for other analyses.  
-
-```python
-# Combine multiple categorical features into a single feature.
-cb_data['combined_features'] = (
-    cb_data['product_category_name'].astype(str) + ' ' +
-    cb_data['description_category'].astype(str) + ' ' +
-    cb_data['photos_category'].astype(str) + ' ' +
-    cb_data['weight_category'].astype(str) + ' ' +
-    cb_data['volume_category'].astype(str) + ' ' +
-    cb_data['price_category'].astype(str)
-)
-
-# Keep only product_id and the combined_features column.
-cb_data = cb_data[['product_id', 'combined_features']]
-```
 
 | product_id                           | combined_features                                      |
 |--------------------------------------|--------------------------------------------------------|
@@ -639,17 +435,6 @@ Dataset is prepared and now ready for modeling in content-based filtering, where
 
 ### **4.5. Collaborative Filtering**
 
-```python
-# Create a pivot table for collaborative filtering with customers as rows,
-# products as columns, and mean review scores as values.
-cf_data = orders_df.pivot_table(
-    index='customer_unique_id',
-    columns='product_id',
-    values='review_score',
-    aggfunc='mean',
-)
-```
-
 A user-item matrix was created to prepare data for collaborative filtering. The matrix models relationships between customers and products based on their review scores. The `orders_df` was transformed into a pivot table where:
 - Rows (`index`) represent unique customers (`customer_unique_id`).  
 - Columns represent unique products (`product_id`).  
@@ -665,24 +450,6 @@ Not NaN values: 11861 (0.03%)
 - The matrix has **41,961,803 NaN values (99.97%)** and **11,861 non-NaN values (0.03%)**, reflecting the sparsity typical of collaborative filtering data, as customers interact with only a small subset of available products.  
 
 The user-item matrix enables collaborative filtering models to predict ratings for products that customers have not interacted with by analyzing patterns in existing customer-product interactions.
-
-```python
-# Define the number of rows and columns to mask (25% of the dataframe).
-rows = -int(0.5 * cf_data.shape[0])
-cols = -int(0.5 * cf_data.shape[1])
-
-# Create a copy of the dataframe and mask the first 50% of rows and columns.
-training_set = cf_data.copy()
-training_set.iloc[:rows, :cols] = np.nan
-
-# Drop rows where all values are NaN.
-indices = training_set[training_set.isna().all(axis=1)].index
-training_set = training_set.drop(indices)
-
-# Extract the dataframe values and create a mask for non-NaN values.
-training_set_value = training_set.values
-training_mask = ~np.isnan(training_set_value)
-```
 
 ![Holdout Set](images/image-4.png)
 
@@ -708,16 +475,6 @@ Partitioning the matrix allows the model to learn from existing customer-product
 - The resulting training set has a shape of **4,735 rows and 7,796 columns**.  
 - A total of **8,853 non-NaN values (74.64% of the original non-NaN values)** are available for training.  
 
-```python
-# Holdout set excluding rows with all NaN values after the split.
-holdout_set = cf_data.copy()
-holdout_set = holdout_set.drop(indices)
-
-# Extract values and create a mask for the first 50% of rows and columns.
-holdout_set_value = holdout_set.iloc[:rows, :cols].values
-holdout_mask = ~np.isnan(holdout_set_value)
-```
-
 A holdout set was created to evaluate the performance of the collaborative filtering model.
 
 1. **Partitioning the Holdout Set**
@@ -737,17 +494,6 @@ The holdout set serves as unseen data for evaluating the model's ability to pred
 
 - The holdout set has a shape of **2,043 rows and 3,898 columns**.  
 - A total of **1,661 non-NaN values (14.00% of the original non-NaN values)** are available for evaluation.  
-
-```python
-# Calculate average review scores per customer.
-avg_review_scores = training_set.mean(axis=1)
-
-# Center the training set by subtracting the average review scores.
-training_set_centered = training_set.sub(avg_review_scores, axis=0)
-
-# Replace NaN values with 0 in the centered training set.
-training_set_centered = training_set_centered.fillna(0)
-```
 
 ```python
 [ 0.  0.  0.  0.  0.  2. -2.  0.  0.  0.]
@@ -850,14 +596,6 @@ The implementation prepares text data for CBF by converting combined product fea
      
      $$TF\text{-}IDF(t, d) = TF(t, d) \times IDF(t)$$
 
-```python
-# Instantiate the vectorizer object to the tf variable.
-tf = TfidfVectorizer()
-
-# Fit and transform the combined_features column.
-vectorized_data = tf.fit_transform(cb_data['combined_features'])
-```
-
 The TF-IDF approach prioritizes meaningful and unique terms in the product descriptions while minimizing the influence of common terms. This representation is fundamental for calculating product similarities, enabling the recommendation system to identify and recommend similar products effectively.
 
 1. **Vectorization**
@@ -867,17 +605,6 @@ The TF-IDF approach prioritizes meaningful and unique terms in the product descr
 2. **Feature Extraction**
    - Distinct terms (features) were extracted from the combined features text.  
    - Products were represented as sparse vectors in a high-dimensional space, where each dimension corresponds to a term's TF-IDF weight.
-
-```python
-# Create Dataframe from TF-IDF array.
-tfidf_df = pd.DataFrame(
-    vectorized_data.toarray(),
-    columns=tf.get_feature_names_out()
-)
-
-# Assign the product_id to the index.
-tfidf_df.index = cb_data['product_id']
-```
 
 | product_id                              | short_description | agro_industry_and_commerce | market_place | drinks | cine_photo |
 |-----------------------------------------|-------------------|----------------------------|--------------|--------|------------|
@@ -909,18 +636,6 @@ Where:
 
 The similarity ranges from **0** (completely dissimilar) to **1** (identical), making it easy to interpret.  
 
-```python
-# Create the array of cosine similarity values.
-cosine_similarity_array = cosine_similarity(tfidf_df)
-
-# Wrap the array in a DataFrame.
-cosine_similarity_df = pd.DataFrame(
-    cosine_similarity_array,
-    index=tfidf_df.index,
-    columns=tfidf_df.index
-)
-```
-
 |                                      | e799a2b8707a6a256fa3c040b75d2713 | 1c6fb703c624b381a20f21f757694866 | 6d0a373c460a041c86167a92a5d3383e | 40678c9096047877fa74a25cc6f0a726 | b8a0d73b2a06e7910d9864dccdb0cda2 |
 |--------------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|
 | e799a2b8707a6a256fa3c040b75d2713    | 1.000                             | 0.231                             | 1.000                             | 0.114                             | 0.131                             |
@@ -938,16 +653,6 @@ The `cosine_similarity_df` provides pairwise similarity scores between products.
 
 #### **5.1.3. Product Recommendation**
 
-```python
-# Find the values for the product '4d5bb93bfa70f67cda10b1428f2a252c'
-cosine_similarity_series = cosine_similarity_df.loc[random_product_id]
-cosine_similarity_series = cosine_similarity_series.drop(random_product_id)
-
-# Sort these values highest to lowest and keep top 5
-ordered_similarities = cosine_similarity_series.sort_values(ascending=False)
-ordered_similarities = ordered_similarities.head()
-```
-
 | product_id                             | 4d5bb93bfa70f67cda10b1428f2a252c |
 |----------------------------------------|-----------------------------------|
 | e65ab426efaf65e083b917d2e9eac80d      | 0.941                             |
@@ -964,17 +669,9 @@ The recommendation system generates product suggestions by identifying the most 
 
 The system outputs a ranked list of the top 5 recommended products, based on their similarity scores to the selected product. These recommendations demonstrate the practical application of CBF for suggesting similar items to customers.
 
-```python
-products_df[products_df['product_id'] == random_product_id]
-```
-
 | product_category_name | product_id                             | product_description_lenght | product_photos_qty | product_weight_g | volume_cm3 | price  |
 |-----------------------|----------------------------------------|----------------------------|--------------------|------------------|------------|--------|
 | books_technical       | 4d5bb93bfa70f67cda10b1428f2a252c      | 250                        | 1                  | 500              | 5808       | 130.8  |
-
-```python
-products_df[products_df['product_id'].isin(ordered_similarities.index)]
-```
 
 | product_category_name | product_id                             | product_description_lenght | product_photos_qty | product_weight_g | volume_cm3 | price  |
 |-----------------------|----------------------------------------|----------------------------|--------------------|------------------|------------|--------|
@@ -1103,14 +800,6 @@ Where:
 SVD is a foundational technique in recommendation systems, enabling robust prediction of missing values and enhancing the ability to personalize recommendations based on hidden user and item characteristics [[4]](https://app.datacamp.com/learn/courses/building-recommendation-engines-in-python).
 
 ```python
-# Decompose the matrix.
-U, sigma, Vt = svds(training_set_centered.values)
-
-# Convert sigma into a diagonal matrix.
-sigma = np.diag(sigma)
-```
-
-```python
 [[3.464 0.    0.    0.    0.    0.   ]
  [0.    3.464 0.    0.    0.    0.   ]
  [0.    0.    3.477 0.    0.    0.   ]
@@ -1134,24 +823,6 @@ The diagonal matrix $\Sigma$ indicates the significance of the corresponding lat
 This decomposition lays the foundation for generating recommendations by reconstructing the interaction matrix with the dominant latent factors.
 
 #### **5.2.2. Interaction Matrix Reconstruction**
-
-```python
-# Dot product of U and sigma.
-U_sigma = np.dot(U, sigma)
-
-# Dot product of result and Vt.
-U_sigma_Vt = np.dot(U_sigma, Vt)
-
-# Add back on the row means contained in avg_ratings.
-predicted_review_scores = U_sigma_Vt + avg_review_scores.values.reshape(-1, 1)
-
-# Create DataFrame of the recalculated_review_scores.
-predictions_df = pd.DataFrame(
-    predicted_review_scores,
-    index=training_set.index,
-    columns=training_set.columns
-)
-```
 
 | product_id                              | 609b1b50202d276e56b2468006fa82aa | b57469faf40b556e16b9a49308953700 | 5c973b4202aac5c372a483e712306f4f | 21fb5057dd6a737df6851a7ab7a130da | 0449db5eede617c5fd413071d582f038 |
 |-----------------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|
@@ -1178,16 +849,6 @@ The `predictions_df` now contains predicted review scores for all users and item
 
 #### **5.2.3. Product Recommendation**
 
-```python
-# Get sorted predictions for customer '175b8225bdd99e95a64e07a6c06e8746.
-recommendations = predictions_df.loc[
-    random_customer_id
-].sort_values(ascending=False)
-
-# Select the top recommendations.
-recommendations = recommendations.head()
-```
-
 | product_id                              | 175b8225bdd99e95a64e07a6c06e8746 |
 |-----------------------------------------|------------------------------------|
 | 0011c512eb256aa0dbbb544d8dffcf6e       | 5.0                                |
@@ -1205,24 +866,10 @@ The CF model generates product recommendations for a specific customer based on 
 
 CF model’s predict user preferences based on latent factors derived from the interaction matrix. The selected items are highly tailored to the customer’s inferred interests, enabling a personalized recommendation experience.  
 
-```python
-# Get a list of products bought by the random customer.
-list_of_products_bought = orders_df[
-    orders_df['customer_unique_id'] == random_customer_id
-]['product_id'].tolist()
-
-# Filter and display product details for the products bought.
-products_df[products_df['product_id'].isin(list_of_products_bought)]
-```
-
 | product_category_name | product_id       | product_description_lenght | product_photos_qty | product_weight_g | volume_cm3 | price  |
 |-----------------------|------------------|----------------------------|--------------------|------------------|------------|--------|
 | bed_bath_table        | 8d944f9367ba7f153e0ab5b6dc7d063b | 237                        | 1                  | 1500             | 13690      | 114.9  |
 | bed_bath_table        | 151d7733b44e0c7b292d7e2efb5424a2 | 305                        | 1                  | 3950             | 19200      | 279.9  |
-
-```python
-products_df[products_df['product_id'].isin(recommendations.index)]
-```
 
 | product_category_name          | product_id       | product_description_lenght | product_photos_qty | product_weight_g | volume_cm3 | price  |
 |--------------------------------|------------------|----------------------------|--------------------|------------------|------------|--------|
@@ -1244,22 +891,6 @@ Features such as **description length**, **photos quantity**, **weight**, **volu
 
 The effectiveness of the CBF system was evaluated by analyzing the alignment of recommended products with the customer’s preferences, using both qualitative insights and quantitative metrics.
 
-```python
-# Get a list of products bought by customer '048df8b25dc48e1554eccde119d6cecd.
-list_of_products_bought = orders_df[
-    orders_df['customer_unique_id'] == random_customer_id
-]['product_id'].tolist()
-
-# Reindex TF-IDF dataframe to include only products bought by the customer.
-products_bought_df = tfidf_df.reindex(list_of_products_bought)
-
-# Calculate the customer's profile by averaging TF-IDF scores of bought products.
-customer_prof = products_bought_df.mean()
-
-# Display the top features in the customer's profile with positive scores.
-customer_prof[customer_prof > 0].sort_values(ascending=False).head()
-```
-
 | Feature             |                   |
 |---------------------|-------------------|
 | baby                | 0.696             |
@@ -1279,32 +910,7 @@ The customer's profile reveals preferences for the following top features.
 - **many_photos**: Suggests a preference for products with more images.  
 - **medium_volume**: Highlights a tendency toward medium-sized products.  
 - **long_description**: Shows a preference for products with detailed descriptions.  
-- **light_weight**: Indicates favorability toward lighter products.  
-
-```python
-# Find subset of tfidf_df that does not include products in list_of_products_bought
-tfidf_subset_df = tfidf_df.drop(list_of_products_bought, axis=0)
-
-# Calculate the cosine_similarity and wrap it in a DataFrame
-similarity_array = cosine_similarity(
-    customer_prof.values.reshape(1, -1),
-    tfidf_subset_df
-)
-similarity_df = pd.DataFrame(
-    similarity_array.T,
-    index=tfidf_subset_df.index,
-    columns=["similarity_score"]
-)
-
-# Sort the values from high to low by the values in the similarity_score
-sorted_similarity_df = similarity_df.sort_values(
-    "similarity_score",
-    ascending=False
-)
-
-# Inspect the most similar to the customer preferences
-sorted_similarity_df = sorted_similarity_df.head()
-```
+- **light_weight**: Indicates favorability toward lighter products.
 
 | Product ID                              | Similarity Score |
 |-----------------------------------------|------------------|
@@ -1323,18 +929,10 @@ The recommendation system generates product suggestions for a customer by identi
 
 The top 5 product recommendations for the customer are identified based on their similarity to the customer’s preferences. These recommendations are tailored to the customer's profile, suggesting items most aligned with their past purchasing behavior and interests.
 
-```python
-products_df[products_df['product_id'].isin(list_of_products_bought)]
-```
-
 | Product Category Name | Product ID                             | Product Description Length | Product Photos Quantity | Product Weight (g) | Volume (cm³) | Price  |
 |-----------------------|----------------------------------------|----------------------------|--------------------------|--------------------|--------------|--------|
 | baby                  | ac946196783ec18b207ead8a00d3f5c4       | 740                        | 3                        | 167                | 4725         | 54.9   |
 | baby                  | b865aecbf934fe78d172e5a0f7a73ec0       | 1344                       | 3                        | 400                | 5120         | 149.9  |
-
-```python
-products_df[products_df['product_id'].isin(sorted_similarity_df.index)]
-```
 
 | Product Category Name | Product ID                             | Product Description Length | Product Photos Quantity | Product Weight (g) | Volume (cm³) | Price  |
 |-----------------------|----------------------------------------|----------------------------|--------------------------|--------------------|--------------|--------|
@@ -1409,9 +1007,6 @@ Where:
 RMSE outputs a single value that quantifies the prediction error, expressed in the same unit as the ratings (e.g., on a scale of 1 to 5).
 
 ```python
-# Extract prediction values for the first 50% of rows and columns.
-predictions_value = predictions_df.iloc[:rows, :cols].values
-
 # The first 20 prediction values that match the holdout mask.
 [5. 4. 5. 3. 5. 2. 1. 1. 1. 5. 1. 1. 5. 3. 4. 4. 5. 4. 5. 5.]
 
@@ -1420,14 +1015,6 @@ predictions_value = predictions_df.iloc[:rows, :cols].values
 ```
 
 The comparison between predicted and actual review scores highlights the collaborative filtering model’s accuracy in approximating user preferences. Predicted ratings from the reconstructed interaction matrix closely align with actual ratings from the holdout set, with minimal deviations observed. The analysis demonstrates strong performance and forms the basis for calculating evaluation metrics such as RMSE, which quantifies the model's prediction error.
-
-```python
-# Calculate the RMSE between actual values and predictions in the holdout set.
-svd_rmse = rmse(
-    holdout_set_value[holdout_mask],
-    predictions_value[holdout_mask],
-).round(2)
-```
 
 ```python
 RMSE of SVD Predictions: 0.86
