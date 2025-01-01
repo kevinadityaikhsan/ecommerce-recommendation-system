@@ -4,7 +4,7 @@
 
 ## **1. Project Overview**
 
-Olist, the largest department store in Brazilian marketplaces, bridges the gap between small businesses and a wide array of sales channels through a seamless and centralized platform. Merchants on Olist can sell their products easily while leveraging Olist's logistics network for efficient delivery. To enhance customer satisfaction and streamline their experience, Olist collects feedback through post-purchase surveys, providing valuable insights into the shopping experience[[1]](https://doi.org/10.3390/su152316151). These customer interactions present an opportunity to develop personalized recommendations, driving both customer engagement and seller success [[2]](https://doi.org/10.3390/su131910786).
+Olist, the largest department store in Brazilian marketplaces, bridges the gap between small businesses and a wide array of sales channels through a seamless and centralized platform. Merchants on Olist can sell their products easily while leveraging Olist's logistics network for efficient delivery. To enhance customer satisfaction and streamline their experience, Olist collects feedback through post-purchase surveys, providing valuable insights into the shopping experience [(Stalidis, et. al, 2023)](https://doi.org/10.3390/su152316151). These customer interactions present an opportunity to develop personalized recommendations, driving both customer engagement and seller success [(Abdul Hussien, Rahma, & Abdulwahab, 2021)](https://doi.org/10.3390/su131910786).
 
 The project focuses on building a recommendation system using content-based filtering and collaborative filtering approaches. A robust recommendation system is essential to enhance the shopping experience, increase customer retention, and support Olist’s mission of empowering small businesses. Leveraging the collected data, the project aims to deliver accurate and personalized recommendations, drawing insights from customer feedback and product attributes to improve customer satisfaction and overall marketplace performance.
 
@@ -27,7 +27,7 @@ The primary goal is to develop a recommendation system that delivers accurate an
 
 ### **3.1. Datasets**
 
-The dataset used for the project is the [**Brazilian E-Commerce Public Dataset by Olist** [3]](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce). It contains approximately 100,000 orders made at Olist Store between 2016 and 2018. The dataset is anonymized and ideal for developing a recommendation system as it provides valuable insights into customer preferences, product details, and purchasing behavior.
+The dataset used for the project is the [**Brazilian E-Commerce Public Dataset by Olist** (kaggle, 2018)](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce). It contains approximately 100,000 orders made at Olist Store between 2016 and 2018. The dataset is anonymized and ideal for developing a recommendation system as it provides valuable insights into customer preferences, product details, and purchasing behavior.
 
 **Tables Used for the Recommendation System**  
 1. **Customers**: Contains customer IDs and unique customer identifiers, which are critical for understanding individual purchasing behavior and linking reviews and orders.  
@@ -449,11 +449,11 @@ Not NaN values: 11861 (0.03%)
 - The resulting matrix contains **5,384 rows (customers)** and **7,796 columns (products)**.  
 - The matrix has **41,961,803 NaN values (99.97%)** and **11,861 non-NaN values (0.03%)**, reflecting the sparsity typical of collaborative filtering data, as customers interact with only a small subset of available products.  
 
-The user-item matrix enables collaborative filtering models to predict ratings for products that customers have not interacted with by analyzing patterns in existing customer-product interactions.
+The user-item matrix enables collaborative filtering models to predict ratings for products that customers have not interacted with by analyzing patterns in existing customer-product interactions [(datacamp, 2024)](https://app.datacamp.com/learn/courses/building-recommendation-engines-in-python).
 
 ![Holdout Set](images/image-4.png)
 
-The user-item matrix was split to create a training set for collaborative filtering modeling [[4]](https://app.datacamp.com/learn/courses/building-recommendation-engines-in-python).
+The user-item matrix was split to create a training set for collaborative filtering modeling.
 
 1. **Splitting Rows and Columns**
    - The matrix was partitioned by masking **50% of the rows and columns**, setting their values to `NaN` to simulate unseen data for model training.  
@@ -797,7 +797,7 @@ Where:
 
 ![SVD](images/image-5.png)
 
-SVD is a foundational technique in recommendation systems, enabling robust prediction of missing values and enhancing the ability to personalize recommendations based on hidden customer and product characteristics [[4]](https://app.datacamp.com/learn/courses/building-recommendation-engines-in-python).
+SVD is a foundational technique in recommendation systems, enabling robust prediction of missing values and enhancing the ability to personalize recommendations based on hidden customer and product characteristics [(Pu & Faltings, 2013)](https://app.datacamp.com/learn/courses/building-recommendation-engines-in-python).
 
 ```python
 [[3.464 0.    0.    0.    0.    0.   ]
@@ -1042,10 +1042,12 @@ The system effectively balances relevance and diversity, ensuring that customers
 
 ## **7. References**
 
-[1] Stalidis, G., Karaveli, I., Diamantaras, K., Delianidi, M., Christantonis, K., Tektonidis, D., Katsalis, A., & Salampasis, M. (2023). Recommendation Systems for e-Shopping: Review of Techniques for Retail and Sustainable Marketing. Sustainability, 15(23), 16151. https://doi.org/10.3390/su152316151
+Abdul Hussien, F. T., Rahma, A. M. S., & Abdulwahab, H. B. (2021). An E-Commerce Recommendation System Based on Dynamic Analysis of Customer Behavior. Sustainability, 13(19), 10786. https://doi.org/10.3390/su131910786
 
-[2] Abdul Hussien, F. T., Rahma, A. M. S., & Abdulwahab, H. B. (2021). An E-Commerce Recommendation System Based on Dynamic Analysis of Customer Behavior. Sustainability, 13(19), 10786. https://doi.org/10.3390/su131910786
+datacamp. (2024). https://app.datacamp.com/learn/courses/building-recommendation-engines-in-python
 
-[3] kaggle. 2018. https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
+kaggle. (2018). https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
 
-[4] datacamp. 2024. https://app.datacamp.com/learn/courses/building-recommendation-engines-in-python
+Pu, Li & Faltings, Boi. (2013). Understanding and improving relational matrix factorization in recommender systems. 41-48. https://www.researchgate.net/publication/262311994_Understanding_and_improving_relational_matrix_factorization_in_recommender_systems
+
+Stalidis, G., Karaveli, I., Diamantaras, K., Delianidi, M., Christantonis, K., Tektonidis, D., Katsalis, A., & Salampasis, M. (2023). Recommendation Systems for e-Shopping: Review of Techniques for Retail and Sustainable Marketing. Sustainability, 15(23), 16151. https://doi.org/10.3390/su152316151
