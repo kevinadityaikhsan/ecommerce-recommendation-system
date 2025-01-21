@@ -970,7 +970,7 @@ The recommended products closely match the customer’s preference for the **bab
 
    Out of the 5 recommendations, all products matched the customer’s preference for the **baby** category.
    
-   $$\text{Precision@5} = \frac{\text{Relevant Recommendations}}{\text{Total Recommendations}} = \frac{5}{5} = 1.0 \, (100\%)$$  
+   $$\text{Precision@5} = \frac{\text{Relevant Recommendations}}{\text{Total Recommendations}} = \frac{5}{5} = 1.0 \, (100\%)$$
 
 2. **Diversity Score**
 
